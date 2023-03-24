@@ -134,7 +134,7 @@ return [
 
     'template'      => [
         'header' => 'admin.header',
-        'footer' => '',
+        'footer' => 'admin.footer',
     ],
 
     /*

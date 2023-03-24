@@ -36,17 +36,25 @@ class PlatformProvider extends OrchidServiceProvider
             // //     ->title('Navigation')
             // //     ->badge(fn () => 6),
 
-            Menu::make('BLocks')
+            Menu::make('Pages')
+                ->icon('monitor')
+                ->route('platform.pages'),
+
+            Menu::make('Blocks')
                 ->icon('code')
                 ->list([
-                    Menu::make('Sub element item 1')->icon('bag'),
-                    Menu::make('Sub element item 2')->icon('heart'),
+                    Menu::make('Banners'),
+                    Menu::make('Achievements'),
+                    Menu::make('About Us'),
+                    Menu::make('Advantages'),
+                    Menu::make('History'),
+                    Menu::make('Manifesto'),
+                    Menu::make('Partners'),
+                    Menu::make('Contacts'),
+
                 ]),
 
-            // Menu::make('Basic Elements')
-            //     ->title('Form controls')
-            //     ->icon('note')
-            //     ->route('platform.example.fields'),
+
 
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')

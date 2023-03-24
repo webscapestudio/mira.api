@@ -1,23 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Orchid\Screens;
 
-use Orchid\Screen\Actions\Link;
-use Orchid\Screen\Screen;
+use App\Models\Pages;
+use App\Orchid\Layouts\Pages\PagesListLayout;
 use Orchid\Support\Facades\Layout;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Screen;
+use Orchid\Screen\TD;
 
-class PlatformScreen extends Screen
+class PagesScreen extends Screen
 {
+
+    public $pages;
     /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Pages $pages): iterable
     {
-        return [];
+        return [
+            'pages' => Pages::all()
+        ];
     }
 
     /**
@@ -27,17 +32,7 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
-    }
-
-    /**
-     * Display header description.
-     *
-     * @return string|null
-     */
-    public function description(): ?string
-    {
-        return '';
+        return 'Pages';
     }
 
     /**
@@ -53,13 +48,12 @@ class PlatformScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return \Orchid\Screen\Layout[]|string[]
      */
     public function layout(): iterable
     {
         return [
-            Layout::view('platform::partials.update-assets'),
-            Layout::view('platform::partials.welcome'),
+            PagesListLayout::class
         ];
     }
 }
