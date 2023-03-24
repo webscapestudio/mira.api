@@ -133,7 +133,7 @@ return [
     */
 
     'template'      => [
-        'header' => '',
+        'header' => 'admin.header',
         'footer' => '',
     ],
 
