@@ -6,7 +6,6 @@ use App\Models\Pages;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
-
 class PagesListLayout extends Table
 {
     /**
@@ -32,7 +31,6 @@ class PagesListLayout extends Table
                 return $page->title > 5 ? 'large' : 'small';
             })->canSee(false),
             TD::make('', 'Edit')->alignRight()
-
         ];
     }
 }
