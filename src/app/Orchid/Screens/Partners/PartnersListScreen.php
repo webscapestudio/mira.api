@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Orchid\Screens\Achievements;
+namespace App\Orchid\Screens\Partners;
 
-use App\Models\Achievements;
+use App\Models\Partners;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
-
-use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
+use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class AchievementsScreen extends Screen
+class PartnersListScreen extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -23,7 +22,7 @@ class AchievementsScreen extends Screen
     public function query(): iterable
     {
         return [
-            'achievements' => Achievements::all()
+            'partners' => Partners::all()
         ];
     }
 
@@ -34,7 +33,7 @@ class AchievementsScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Achievements';
+        return 'Partners';
     }
 
     /**
@@ -44,9 +43,7 @@ class AchievementsScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [
-            Link::make('Add')->icon('plus')->route('platform.achievements.create')
-        ];
+        return [Link::make('Add')->icon('plus')->route('platform.partners.create')];
     }
 
     /**
@@ -57,26 +54,32 @@ class AchievementsScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::table('achievements', [
-                TD::make('number', "Number")->width('100px'),
-                TD::make('addition', "Addition")->width('120px'),
-                TD::make('description', "Description")->width('grow'),
+            Layout::table('partners', [
+                TD::make('logo', 'Logo')->width('100')
+                    ->render(function ($banner) {
+                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$banner->logo' />";
+                    }),
+                TD::make('title', 'Title'),
+                TD::make('description', 'Description'),
+
+                TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
+                    return $date->created_at->diffForHumans();
+                }),
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
                     ->width('100px')
-                    ->render(fn (Achievements $item) => DropDown::make()
+                    ->render(fn (Partners $user) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
-
                             Link::make(__('Edit'))
-                                ->route('platform.achievements.edit', $item->id)
+                                ->route('platform.banners.edit', $user->id)
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('remove', [
-                                    'id' => $item->id,
+                                    'id' => $user->id,
                                 ]),
                         ])),
             ])
@@ -85,7 +88,7 @@ class AchievementsScreen extends Screen
 
     public function remove(Request $request): void
     {
-        Achievements::findOrFail($request->get('id'))->delete();
+        Partners::findOrFail($request->get('id'))->delete();
         Toast::info(__('Banner was removed'));
     }
 }

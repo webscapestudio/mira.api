@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Orchid\Screens\Advantages;
+namespace App\Orchid\Screens\Partners;
 
-use App\Models\Advantages;
+use App\Models\Partners;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class AdvantagesEditScreen extends Screen
+class PartnersEditScreen extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -30,7 +31,7 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages';
+        return 'Partners';
     }
 
     /**
@@ -40,11 +41,9 @@ class AdvantagesEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [
-            Button::make(__('Save'))
-                ->icon('check')
-                ->method('save'),
-        ];
+        return [Button::make(__('Save'))
+            ->icon('check')
+            ->method('save'),];
     }
 
     /**
@@ -56,22 +55,22 @@ class AdvantagesEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title')->title('Title')->type('text')->required()->placeholder(),
-                Input::make('description')->title('Description')->type('text')->required(),
-                Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Input::make('sort')->title('Sort')->type('text')->required(),
-
-
-
-            ]),
+                Input::make('title')
+                    ->title('Title')
+                    ->type('text')
+                    ->required()
+                    ->placeholder(),
+                TextArea::make('description')->title('Description')->required(),
+                Picture::make('logo')->title('Logo')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+            ])
         ];
     }
-    public function save(Request $request, Advantages $item)
+
+    public function save(Request $request, Partners $item)
     {
         $item->fill($request->all())->save();
         $item->save();
-        return redirect()->route('platform.advantages.list');
         Toast::info(__('Banner was saved'));
+        return redirect()->route('platform.partners.list');
     }
 }

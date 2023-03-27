@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Orchid\Screens\Advantages;
+namespace App\Orchid\Screens\Manifesto;
 
-use App\Models\Advantages;
-use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\TextArea;
+use Orchid\Screen\Layouts\Columns;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
-use Orchid\Support\Facades\Toast;
 
-class AdvantagesEditScreen extends Screen
+class ManifestoMainScreenn extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -30,7 +29,7 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages';
+        return 'Manifesto';
     }
 
     /**
@@ -56,22 +55,13 @@ class AdvantagesEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title')->title('Title')->type('text')->required()->placeholder(),
-                Input::make('description')->title('Description')->type('text')->required(),
-                Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Input::make('sort')->title('Sort')->type('text')->required(),
-
-
-
+                Input::make('title')->title('Title')->type('text')->required(),
+                TextArea::make('description')->title('Description')->type('text')->required(),
+                Input::make('image_desc_title')->title('Desktop image title')->type('text')->required(),
+                Picture::make('image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
+                Input::make('image_mob_title')->title('Desktop image title')->type('text')->required(),
+                Picture::make('image_mob')->title('Image mobile')->acceptedFiles('image/*,application/pdf,.psd')->required(),
             ]),
         ];
-    }
-    public function save(Request $request, Advantages $item)
-    {
-        $item->fill($request->all())->save();
-        $item->save();
-        return redirect()->route('platform.advantages.list');
-        Toast::info(__('Banner was saved'));
     }
 }

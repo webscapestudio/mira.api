@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Orchid\Screens\Advantages;
+namespace App\Orchid\Screens\History;
 
-use App\Models\Advantages;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\TextArea;
+use Orchid\Screen\Fields\Upload;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class AdvantagesEditScreen extends Screen
+class HistoryEditScreen extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -30,7 +32,7 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages';
+        return 'History';
     }
 
     /**
@@ -56,22 +58,22 @@ class AdvantagesEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title')->title('Title')->type('text')->required()->placeholder(),
-                Input::make('description')->title('Description')->type('text')->required(),
-                Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Input::make('sort')->title('Sort')->type('text')->required(),
-
-
-
+                Input::make('year')->title('Year')->type('text')->required(),
+                Input::make('title')->title('Title')->type('text')->required(),
+                TextArea::make('description')->title('Description')->rows(5)->type('text')->required(),
+                Picture::make('image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
+                Picture::make('image_mob')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
             ]),
+
+
         ];
     }
-    public function save(Request $request, Advantages $item)
+
+    public function save(Request $request, History $item)
     {
         $item->fill($request->all())->save();
         $item->save();
-        return redirect()->route('platform.advantages.list');
-        Toast::info(__('Banner was saved'));
+        Toast::info(__('History was saved'));
+        return redirect()->route('platform.history.list');
     }
 }

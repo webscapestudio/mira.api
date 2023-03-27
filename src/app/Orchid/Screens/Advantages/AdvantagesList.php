@@ -56,15 +56,19 @@ class AdvantagesList extends Screen
     {
         return [
             Layout::table('advantages', [
-                TD::make('number', 'Number'),
-                TD::make('addition', 'Addition'),
-                TD::make('description', 'Addition'),
+                TD::make('image_desc', 'Image')->width('80px')
+                    ->render(function ($banner) {
+                        return "<img  class='mw-80 d-block img-fluid rounded-1 w-80' src='$banner->image_desc' />";
+                    }),
+                TD::make('title', 'Title')->width('180px'),
+                TD::make('sort', 'Order')->align(TD::ALIGN_CENTER),
+                TD::make('description', 'Description')->width('grow'),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
-                    ->width('100px')
+                    // ->width('100px')
                     ->render(fn (Advantages $item) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([

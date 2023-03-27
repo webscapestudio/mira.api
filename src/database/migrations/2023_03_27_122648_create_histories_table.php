@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('advantages', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->text("title");
-            $table->text("description");
-            $table->text("image_desc");
-            $table->text("image_mob");
-            $table->integer("sort");
+            $table->integer('year');
+            $table->string('title');
+            $table->string('image_desc');
+            $table->string('image_mob');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advantages');
+        Schema::dropIfExists('histories');
     }
 };

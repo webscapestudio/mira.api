@@ -9,7 +9,12 @@ use App\Orchid\Screens\Advantages\AdvantagesEditScreen;
 use App\Orchid\Screens\Advantages\AdvantagesList;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
+use App\Orchid\Screens\History\HistoryEditScreen;
+use App\Orchid\Screens\History\HistoryListScreen;
+use App\Orchid\Screens\Manifesto\ManifestoMainScreenn;
 use App\Orchid\Screens\PagesScreen;
+use App\Orchid\Screens\Partners\PartnersEditScreen;
+use App\Orchid\Screens\Partners\PartnersListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -56,6 +61,26 @@ Route::screen('advantages/create', AdvantagesEditScreen::class)
     ->name('platform.advantages.create');
 Route::screen('advantages/{id}/edit', AdvantagesEditScreen::class)
     ->name('platform.advantages.edit');
+
+
+// History
+Route::screen('history', HistoryListScreen::class)->name('platform.history.list');
+Route::screen('history/create', HistoryEditScreen::class)
+    ->name('platform.history.create');
+Route::screen('history/{id}/edit', HistoryEditScreen::class)
+    ->name('platform.history.edit');
+
+
+// Manifesto
+Route::screen('manifesto', ManifestoMainScreenn::class)->name('platform.manifesto.list');
+
+// Partners
+Route::screen('partners', PartnersListScreen::class)->name('platform.partners.list');
+Route::screen('partners/create', PartnersEditScreen::class)
+    ->name('platform.partners.create');
+Route::screen('partners/{id}/edit', PartnersEditScreen::class)
+    ->name('platform.partners.edit');
+
 
 
 // Main
