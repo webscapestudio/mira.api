@@ -32,7 +32,7 @@ class AchievementsListTable extends Table
             TD::make('description','Description')->filter(TD::FILTER_TEXT),
             TD::make('created_at','Created')->defaultHidden(),
             TD::make('updated_at','Updated')->defaultHidden(),
-            TD::make('action')->render(function (Achievements $achievement) {
+            TD::make('Edit')->render(function (Achievements $achievement) {
                 return ModalToggle::make('Edit')
                 ->modal('editAchievement')
                 ->method('update')
@@ -41,7 +41,7 @@ class AchievementsListTable extends Table
                     'achievement' => $achievement->id
                 ]);
             }),
-            TD::make('action')->render(function (Achievements $achievement) {
+            TD::make('Delete')->render(function (Achievements $achievement) {
                 return ModalToggle::make('Delete')
                 ->modal('deleteAchievement')
                 ->method('delete')

@@ -86,10 +86,9 @@ class AchievementsListScreen extends Screen
             'achievement' => $achievement
         ];
     }
-    public function delete(Request $request): void
+    public function delete(Achievements $achievement): void
     {
-        $achievement = Achievements::find($request->input('achievement.id'));
-        dd($request->input('achievement.id'));
+        $achievement = Achievements::find($achievement->id);
         $achievement->delete();
         Toast::info('Successfully deleted');
     }
