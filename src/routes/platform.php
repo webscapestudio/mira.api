@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Achievements\AchievementsEditScreen;
+use App\Orchid\Screens\Achievements\AchievementsScreen;
+use App\Orchid\Screens\Banners\BannersEdit;
+use App\Orchid\Screens\Banners\BannersList;
 use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
@@ -22,6 +26,22 @@ use Tabuna\Breadcrumbs\Trail;
 | contains the need "dashboard" middleware group. Now create something great!
 |
 */
+
+// Pages
+Route::screen("pages", PagesScreen::class)->name('platform.pages');
+
+// Banners
+Route::screen("banners", BannersList::class)->name('platform.banners.list');
+// Route::screen("banners/{name}", Banners::class)->name('platform.banners');
+Route::screen("banners/create", BannersEdit::class)->name('platform.banners.create');
+
+// Achievements
+Route::screen('achievements', AchievementsScreen::class)->name('platform.achievements.list');
+Route::screen('achievements/create', AchievementsEditScreen::class)
+    ->name('platform.achievements.create');
+// ->breadcrumbs(fn (Trail $trail) => $trail
+//     ->parent('platform.achievements.list')
+//     ->push(('create'), route('platform.achievements.list')));
 
 // Main
 Route::screen('/main', PlatformScreen::class)
@@ -75,6 +95,3 @@ Route::screen('roles', RoleListScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
-
-
-Route::screen("page", PagesScreen::class)->name('platform.pages');
