@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('achievements', function (Blueprint $table) {
+        Schema::create('advantages', function (Blueprint $table) {
             $table->id();
-            $table->integer('number');
-            $table->string('addition');
-            $table->string('description');
+            $table->integer("number");
+            $table->text("addition");
+            $table->text("description");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('achievements');
+        Schema::dropIfExists('advantages');
     }
 };

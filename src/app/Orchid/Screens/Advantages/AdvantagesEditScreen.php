@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Orchid\Screens\Achievements;
+namespace App\Orchid\Screens\Advantages;
 
-use App\Models\Achievements;
+use App\Models\Advantages;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
-use Orchid\Screen\Screen;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
-use Illuminate\Http\Request;
 
-class AchievementsEditScreen extends Screen
+class AdvantagesEditScreen extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -29,7 +29,7 @@ class AchievementsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Achievements';
+        return 'Advantages';
     }
 
     /**
@@ -61,7 +61,7 @@ class AchievementsEditScreen extends Screen
             ]),
         ];
     }
-    public function save(Request $request, Achievements $item)
+    public function save(Request $request, Advantages $item)
     {
         $request->validate([
             'number' => [
@@ -71,7 +71,7 @@ class AchievementsEditScreen extends Screen
         ]);
         $item->fill($request->all())->save();
         $item->save();
-        return redirect()->route('platform.achievements.list');
+        return redirect()->route('platform.advantages.list');
         Toast::info(__('Banner was saved'));
     }
 }

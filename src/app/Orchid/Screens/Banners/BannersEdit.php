@@ -3,10 +3,12 @@
 namespace App\Orchid\Screens\Banners;
 
 use App\Models\Banners;
+use App\Models\User;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Illuminate\Http\Request;
 use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -58,18 +60,14 @@ class BannersEdit extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title_first')->title('Title first')->type('text')->required(),
+                Input::make('title_first')
+                    ->title('Title first')
+                    ->type('text')
+                    ->required()
+                    ->placeholder(),
                 Input::make('title_second')->title('Title second')->type('text')->required(),
                 Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
                 Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                // Select::make('project_id')
-                //     ->options([
-                //         'index'   => 'Index',
-                //         'noindex' => 'No index',
-                //     ])
-                //     ->title('Project')
-
-
             ])
         ];
     }

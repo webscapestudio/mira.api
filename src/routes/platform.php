@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Orchid\Screens\Achievements\AchievementsEditScreen;
 use App\Orchid\Screens\Achievements\AchievementsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsScreen;
+use App\Orchid\Screens\Advantages\AdvantagesEditScreen;
+use App\Orchid\Screens\Advantages\AdvantagesList;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
 use App\Orchid\Screens\PagesScreen;
@@ -35,14 +37,26 @@ Route::screen("pages", PagesScreen::class)->name('platform.pages');
 Route::screen("banners", BannersList::class)->name('platform.banners.list');
 // Route::screen("banners/{name}", Banners::class)->name('platform.banners');
 Route::screen("banners/create", BannersEdit::class)->name('platform.banners.create');
+Route::screen('banners/{banner}/edit', BannersEdit::class)
+    ->name('platform.banners.edit');
+
 
 // Achievements
 Route::screen('achievements', AchievementsScreen::class)->name('platform.achievements.list');
 Route::screen('achievements/create', AchievementsEditScreen::class)
     ->name('platform.achievements.create');
-// ->breadcrumbs(fn (Trail $trail) => $trail
-//     ->parent('platform.achievements.list')
-//     ->push(('create'), route('platform.achievements.list')));
+
+Route::screen('achievements/{id}/edit', AchievementsEditScreen::class)
+    ->name('platform.achievements.edit');
+
+
+//Advantages
+Route::screen('advantages', AdvantagesList::class)->name('platform.advantages.list');
+Route::screen('advantages/create', AdvantagesEditScreen::class)
+    ->name('platform.advantages.create');
+Route::screen('advantages/{id}/edit', AdvantagesEditScreen::class)
+    ->name('platform.advantages.edit');
+
 
 // Main
 Route::screen('/main', PlatformScreen::class)
@@ -96,4 +110,3 @@ Route::screen('roles', RoleListScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
-
