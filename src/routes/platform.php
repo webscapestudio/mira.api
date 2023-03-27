@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Achievements\AchievementsListScreen;
 use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
@@ -78,3 +79,4 @@ Route::screen('roles', RoleListScreen::class)
 
 
 Route::screen("page", PagesScreen::class)->name('platform.pages');
+Route::screen("achievements", AchievementsListScreen::class)->name('platform.achievements');

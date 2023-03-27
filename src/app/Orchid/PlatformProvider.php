@@ -44,7 +44,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('code')
                 ->list([
                     Menu::make('Banners'),
-                    Menu::make('Achievements'),
+                    Menu::make('Achievements')->route('platform.achievements'),
                     Menu::make('About Us'),
                     Menu::make('Advantages'),
                     Menu::make('History'),

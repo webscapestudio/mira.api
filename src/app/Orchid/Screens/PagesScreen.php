@@ -34,7 +34,7 @@ class PagesScreen extends Screen
     {
         return 'Pages';
     }
-
+ 
     /**
      * The screen's action buttons.
      *
