@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Orchid\Screens\Achievements\AchievementsEditScreen;
+use App\Orchid\Screens\Achievements\AchievementsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsScreen;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
@@ -95,3 +96,4 @@ Route::screen('roles', RoleListScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
+

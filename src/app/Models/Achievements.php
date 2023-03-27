@@ -4,10 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Orchid\Screen\AsSource;
+
+use Orchid\Filters\Filterable;
+
+
 
 class Achievements extends Model
 {
-    use HasFactory, AsSource;
-    protected $guarded = [];
+
+    use HasFactory, AsSource, Filterable;
+    protected $fillable = [
+        'number',
+        'addition',
+        'description'
+    ];
+    protected $allowedSorts = ['number','addition'];
+    protected $allowedFilters = ['description'];
+
 }
