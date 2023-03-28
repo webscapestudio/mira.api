@@ -70,7 +70,7 @@ class PartnersEditScreen extends Screen
     {
         $item->fill($request->all())->save();
         $item->save();
-        Toast::info(__('Banner was saved'));
+        Toast::info(__('Partners was saved'));
         return redirect()->route('platform.partners.list');
     }
 }
