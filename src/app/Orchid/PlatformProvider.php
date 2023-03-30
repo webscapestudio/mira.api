@@ -40,6 +40,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('monitor')
                 ->route('platform.pages'),
 
+                Menu::make('Gallery')
+                ->icon('picture')
+                ->route('platform.gallery.list'),
+
             Menu::make('Blocks')
                 ->icon('code')
                 ->list([
@@ -60,8 +64,6 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Contacts'),
 
                 ]),
-
-
 
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')

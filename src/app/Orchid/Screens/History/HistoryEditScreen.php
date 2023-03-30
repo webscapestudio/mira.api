@@ -47,7 +47,7 @@ class HistoryEditScreen extends Screen
         return [
             Button::make(__('Save'))
                 ->icon('check')
-                ->method('save'),
+                ->method('createOrUpdate'),
         ];
     }
 
@@ -71,10 +71,9 @@ class HistoryEditScreen extends Screen
         ];
     }
 
-    public function save(Request $request, History $history)
+    public function createOrUpdate(History $history, Request $request)
     {
-        $history->fill($request->history)->save();
-        $history->save();
+        $history->fill($request->get('history'))->save();
         Toast::info(__('History was saved'));
         return redirect()->route('platform.history.list');
     }

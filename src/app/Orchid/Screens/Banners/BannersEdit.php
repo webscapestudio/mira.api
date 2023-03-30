@@ -47,7 +47,7 @@ class BannersEdit extends Screen
         return [
             Button::make(__('Save'))
                 ->icon('check')
-                ->method('save'),
+                ->method('createOrUpdate'),
         ];
     }
 
@@ -71,10 +71,9 @@ class BannersEdit extends Screen
         ];
     }
 
-    public function save(Request $request, Banners $banner)
+    public function createOrUpdate(Banners $banner, Request $request)
     {
-        $banner->fill($request->banner)->save();
-        $banner->save();
+        $banner->fill($request->get('banner'))->save();
         Toast::info(__('Banner was saved'));
         return redirect()->route('platform.banners.list');
     }

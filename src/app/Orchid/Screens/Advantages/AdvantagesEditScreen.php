@@ -45,7 +45,7 @@ class AdvantagesEditScreen extends Screen
         return [
             Button::make(__('Save'))
                 ->icon('check')
-                ->method('save'),
+                ->method('createOrUpdate'),
         ];
     }
 
@@ -66,10 +66,9 @@ class AdvantagesEditScreen extends Screen
             ]),
         ];
     }
-    public function save(Request $request, Advantages $advantage)
+    public function createOrUpdate(Advantages $advantage, Request $request)
     {
-        $advantage->fill($request->advantage)->save();
-        $advantage->save();
+        $advantage->fill($request->get('advantage'))->save();
         return redirect()->route('platform.advantages.list');
         Toast::info(__('Advantages was saved'));
     }

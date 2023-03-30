@@ -9,6 +9,7 @@ use App\Orchid\Screens\Advantages\AdvantagesEditScreen;
 use App\Orchid\Screens\Advantages\AdvantagesList;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
+use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
 use App\Orchid\Screens\Manifesto\ManifestoMainScreenn;
@@ -37,7 +38,7 @@ use Tabuna\Breadcrumbs\Trail;
 
 // Pages
 Route::screen("pages", PagesScreen::class)->name('platform.pages');
-
+Route::screen("gallery", GalleryListScreen::class)->name('platform.gallery.list');
 // Banners
 Route::screen("banners", BannersList::class)->name('platform.banners.list');
 // Route::screen("banners/{name}", Banners::class)->name('platform.banners');

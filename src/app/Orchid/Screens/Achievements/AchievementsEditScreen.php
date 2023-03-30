@@ -44,7 +44,7 @@ class AchievementsEditScreen extends Screen
         return [
             Button::make(__('Save'))
                 ->icon('check')
-                ->method('save'),
+                ->method('createOrUpdate'),
         ];
     }
 
@@ -63,10 +63,11 @@ class AchievementsEditScreen extends Screen
             ]),
         ];
     }
-    public function save(Request $request, Achievements $achievement)
+
+
+    public function createOrUpdate(Achievements $achievement, Request $request)
     {
-        $achievement->fill($request->achievement)->save();
-        $achievement->save();
+        $achievement->fill($request->get('achievement'))->save();
         return redirect()->route('platform.achievements.list');
         Toast::info(__('Achievement was saved'));
     }

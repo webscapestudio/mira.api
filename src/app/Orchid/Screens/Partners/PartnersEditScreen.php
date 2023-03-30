@@ -64,7 +64,7 @@ class PartnersEditScreen extends Screen
                     ->required(),
                 TextArea::make('partner.description')->title('Description')->required(),
                 Picture::make('partner.logo')->title('Logo')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Upload::make('partner.attachment'),
+                Upload::make('partner.attachment')->title('Photo')->required()->acceptedFiles('image/*,application/pdf,.psd'),
             ])
         ];
     }
