@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\AboutUs\AboutUsEditScreen;
+use App\Orchid\Screens\AboutUs\AboutUsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsEditScreen;
 use App\Orchid\Screens\Achievements\AchievementsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsScreen;
@@ -9,9 +11,13 @@ use App\Orchid\Screens\Advantages\AdvantagesEditScreen;
 use App\Orchid\Screens\Advantages\AdvantagesList;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
+use App\Orchid\Screens\Contacts\ContactsEditScreen;
+use App\Orchid\Screens\Contacts\ContactsListScreen;
 use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
+use App\Orchid\Screens\Manifesto\ManifestoEditScreen;
+use App\Orchid\Screens\Manifesto\ManifestoListScreen;
 use App\Orchid\Screens\Manifesto\ManifestoMainScreenn;
 use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\Partners\PartnersEditScreen;
@@ -38,6 +44,7 @@ use Tabuna\Breadcrumbs\Trail;
 
 // Pages
 Route::screen("pages", PagesScreen::class)->name('platform.pages');
+// Gallery
 Route::screen("gallery", GalleryListScreen::class)->name('platform.gallery.list');
 // Banners
 Route::screen("banners", BannersList::class)->name('platform.banners.list');
@@ -73,7 +80,12 @@ Route::screen('history/{id}/edit', HistoryEditScreen::class)
 
 
 // Manifesto
-Route::screen('manifesto', ManifestoMainScreenn::class)->name('platform.manifesto.list');
+Route::screen('manifestos', ManifestoListScreen::class)->name('platform.manifestos.list');
+Route::screen('manifestos/create', ManifestoEditScreen::class)
+    ->name('platform.manifestos.create');
+Route::screen('manifestos/{id}/edit', ManifestoEditScreen::class)
+    ->name('platform.manifestos.edit');
+
 
 // Partners
 Route::screen('partners', PartnersListScreen::class)->name('platform.partners.list');
@@ -83,6 +95,20 @@ Route::screen('partners/{id}/edit', PartnersEditScreen::class)
     ->name('platform.partners.edit');
 
 
+    // AboutUs
+Route::screen('about-us', AboutUsListScreen::class)->name('platform.about-us.list');
+Route::screen('about-us/create', AboutUsEditScreen::class)
+    ->name('platform.about-us.create');
+Route::screen('about-us/{id}/edit', AboutUsEditScreen::class)
+    ->name('platform.about-us.edit');
+
+
+        // Contacts
+Route::screen('contacts', ContactsListScreen::class)->name('platform.contacts.list');
+Route::screen('contacts/create', ContactsEditScreen::class)
+    ->name('platform.contacts.create');
+Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
+    ->name('platform.contacts.edit');
 
 // Main
 Route::screen('/main', PlatformScreen::class)

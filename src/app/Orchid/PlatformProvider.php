@@ -52,16 +52,18 @@ class PlatformProvider extends OrchidServiceProvider
                         ->route('platform.banners.list'),
                     Menu::make('Achievements')
                         ->route('platform.achievements.list'),
-                    Menu::make('About Us'),
+                    Menu::make('About Us')
+                    ->route('platform.about-us.list'),
                     Menu::make('Advantages')
                         ->route('platform.advantages.list'),
                     Menu::make('History')
                         ->route('platform.history.list'),
                     Menu::make('Manifesto')
-                        ->route('platform.manifesto.list'),
+                        ->route('platform.manifestos.list'),
                     Menu::make('Partners')
                         ->route('platform.partners.list'),
-                    Menu::make('Contacts'),
+                    Menu::make('Contacts')
+                    ->route('platform.contacts.list'),
 
                 ]),
 

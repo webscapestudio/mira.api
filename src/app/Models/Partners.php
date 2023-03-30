@@ -10,7 +10,7 @@ use Orchid\Screen\AsSource;
 
 class Partners extends Model
 {
-    use AsSource, Attachable;
+    use HasFactory, AsSource, Attachable;
     protected $table = 'partners';
     protected $fillable = ['title', 'description', 'logo'];
 
