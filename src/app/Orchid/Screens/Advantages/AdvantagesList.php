@@ -57,41 +57,41 @@ class AdvantagesList extends Screen
         return [
             Layout::table('advantages', [
                 TD::make('image_desc', 'Image')->width('80px')
-                    ->render(function ($banner) {
-                        return "<img  class='mw-80 d-block img-fluid rounded-1 w-80' src='$banner->image_desc' />";
+                    ->render(function ($advantage) {
+                        return "<img  class='mw-80 d-block img-fluid rounded-1 w-80' src='$advantage->image_desc' />";
                     }),
                 TD::make('title', 'Title')->width('180px'),
-                TD::make('sort', 'Order')->align(TD::ALIGN_CENTER),
+                TD::make('sort', 'Order')->align(TD::ALIGN_CENTER)->width('100px'),
                 TD::make('description', 'Description')->width('grow'),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
-                    // ->width('100px')
-                    ->render(fn (Advantages $item) => DropDown::make()
+                    ->width('100px')
+                    ->render(fn (Advantages $advantage) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
 
                             Link::make(__('Edit'))
-                                ->route('platform.banners.edit', $item->id)
+                                ->route('platform.advantages.edit', $advantage->id)
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('delete', [
-                                    'id' => $item->id,
+                                    'id' => $advantage->id,
                                 ]),
                         ])),
             ])
         ];
     }
 
-    public function delete(Advantages $item): void
+    public function delete(Advantages $advantage): void
     {
-        $item = Advantages::find($item->id);
-        $item->delete();
+        $advantage = Advantages::find($advantage->id);
+        $advantage->delete();
         Toast::info('Successfully deleted');
     }
 }

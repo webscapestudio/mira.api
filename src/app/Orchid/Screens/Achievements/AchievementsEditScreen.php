@@ -17,9 +17,11 @@ class AchievementsEditScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Achievements $achievement): iterable
     {
-        return [];
+        return [
+            'achievement' => $achievement
+        ];
     }
 
     /**
@@ -55,23 +57,17 @@ class AchievementsEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('number')->title('Number')->type('text')->required()->placeholder(),
-                Input::make('addition')->title('Number text')->type('text')->required(),
-                Input::make('description')->title('Description')->type('text')->required(),
+                Input::make('achievement.number')->title('Number')->type('number')->required(),
+                Input::make('achievement.addition')->title('Number text')->type('text')->required(),
+                Input::make('achievement.description')->title('Description')->type('text')->required(),
             ]),
         ];
     }
-    public function save(Request $request, Achievements $item)
+    public function save(Request $request, Achievements $achievement)
     {
-        $request->validate([
-            'number' => [
-                'required',
-                'integer'
-            ],
-        ]);
-        $item->fill($request->all())->save();
-        $item->save();
+        $achievement->fill($request->achievement)->save();
+        $achievement->save();
         return redirect()->route('platform.achievements.list');
-        Toast::info(__('Banner was saved'));
+        Toast::info(__('Achievement was saved'));
     }
 }

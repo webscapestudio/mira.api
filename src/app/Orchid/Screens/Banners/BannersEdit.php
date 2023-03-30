@@ -60,21 +60,20 @@ class BannersEdit extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title_first')
+                Input::make('banner.title_first')
                     ->title('Title first')
                     ->type('text')
-                    ->required()
-                    ->placeholder(),
-                Input::make('title_second')->title('Title second')->type('text')->required(),
-                Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                    ->required(),
+                Input::make('banner.title_second')->title('Title second')->type('text')->required(),
+                Picture::make('banner.image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                Picture::make('banner.image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
             ])
         ];
     }
 
     public function save(Request $request, Banners $banner)
     {
-        $banner->fill($request->all())->save();
+        $banner->fill($request->banner)->save();
         $banner->save();
         Toast::info(__('Banner was saved'));
         return redirect()->route('platform.banners.list');

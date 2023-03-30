@@ -8,6 +8,7 @@ use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\TextArea;
+use Orchid\Screen\Fields\Upload;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -19,9 +20,11 @@ class PartnersEditScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Partners $partner): iterable
     {
-        return [];
+        return [
+            'partner' => $partner
+        ];
     }
 
     /**
@@ -43,7 +46,7 @@ class PartnersEditScreen extends Screen
     {
         return [Button::make(__('Save'))
             ->icon('check')
-            ->method('save'),];
+            ->method('createOrUpdate'),];
     }
 
     /**
@@ -55,21 +58,25 @@ class PartnersEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title')
+                Input::make('partner.title')
                     ->title('Title')
                     ->type('text')
-                    ->required()
-                    ->placeholder(),
-                TextArea::make('description')->title('Description')->required(),
-                Picture::make('logo')->title('Logo')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                    ->required(),
+                TextArea::make('partner.description')->title('Description')->required(),
+                Picture::make('partner.logo')->title('Logo')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                Upload::make('partner.attachment'),
             ])
         ];
     }
 
-    public function save(Request $request, Partners $item)
+    public function createOrUpdate(Partners $partner, Request $request)
     {
-        $item->fill($request->all())->save();
-        $item->save();
+        $partner->fill($request->get('partner'))->save();
+    
+        $partner->attachment()->syncWithoutDetaching(
+            $request->input('partner.attachment', [])
+        );
+    
         Toast::info(__('Partners was saved'));
         return redirect()->route('platform.partners.list');
     }

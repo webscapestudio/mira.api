@@ -55,9 +55,10 @@ class HistoryListScreen extends Screen
         return [
             Layout::table('history', [
                 TD::make('image_desc', 'Image')->width('100')
-                    ->render(function ($banner) {
-                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$banner->image_desc' />";
+                    ->render(function ($history) {
+                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$history->image_desc' />";
                     }),
+                    TD::make('year', 'Year')->width('180px'),
                 TD::make('title', 'Title')->width('180px'),
                 TD::make('description', 'Description')->width('grow'),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
@@ -65,29 +66,29 @@ class HistoryListScreen extends Screen
                 }),
                 TD::make(__('Actions'))->align(TD::ALIGN_CENTER)
                     ->width('100px')
-                    ->render(fn (History $item) => DropDown::make()
+                    ->render(fn (History $history) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
 
                             Link::make(__('Edit'))
-                                ->route('platform.banners.edit', $item->id)
+                                ->route('platform.history.edit', $history->id)
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('delete', [
-                                    'id' => $item->id,
+                                    'id' => $history->id,
                                 ]),
                         ])),
             ])
         ];
     }
 
-    public function delete(History $item): void
+    public function delete(History $history): void
     {
-        $item = History::find($item->id);
-        $item->delete();
+        $history = History::find($history->id);
+        $history->delete();
         Toast::info('Successfully deleted');
     }
 }

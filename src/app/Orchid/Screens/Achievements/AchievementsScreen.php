@@ -64,19 +64,19 @@ class AchievementsScreen extends Screen
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
                     ->width('100px')
-                    ->render(fn (Achievements $item) => DropDown::make()
+                    ->render(fn (Achievements $achievement) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
 
                             Link::make(__('Edit'))
-                                ->route('platform.achievements.edit', $item->id)
+                                ->route('platform.achievements.edit', $achievement->id)
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('remove', [
-                                    'id' => $item->id,
+                                    'id' => $achievement->id,
                                 ]),
                         ])),
             ])
@@ -86,6 +86,6 @@ class AchievementsScreen extends Screen
     public function remove(Request $request): void
     {
         Achievements::findOrFail($request->get('id'))->delete();
-        Toast::info(__('Banner was removed'));
+        Toast::info(__('Achievement was removed'));
     }
 }

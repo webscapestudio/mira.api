@@ -56,8 +56,8 @@ class PartnersListScreen extends Screen
         return [
             Layout::table('partners', [
                 TD::make('logo', 'Logo')->width('100')
-                    ->render(function ($banner) {
-                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$banner->logo' />";
+                    ->render(function ($partner) {
+                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$partner->logo' />";
                     }),
                 TD::make('title', 'Title'),
                 TD::make('description', 'Description'),
@@ -68,27 +68,26 @@ class PartnersListScreen extends Screen
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
                     ->width('100px')
-                    ->render(fn (Partners $user) => DropDown::make()
+                    ->render(fn (Partners $partner) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
                             Link::make(__('Edit'))
-                                ->route('platform.banners.edit', $user->id)
+                                ->route('platform.partners.edit', $partner->id)
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('remove', [
-                                    'id' => $user->id,
+                                    'id' => $partner->id,
                                 ]),
                         ])),
             ])
         ];
     }
-
     public function remove(Request $request): void
     {
         Partners::findOrFail($request->get('id'))->delete();
-        Toast::info(__('Banner was removed'));
+        Toast::info(__('Partner was removed'));
     }
 }

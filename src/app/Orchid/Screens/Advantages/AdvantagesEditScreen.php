@@ -18,9 +18,11 @@ class AdvantagesEditScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Advantages $advantage): iterable
     {
-        return [];
+        return [
+            'advantage' => $advantage
+        ];
     }
 
     /**
@@ -56,22 +58,19 @@ class AdvantagesEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('title')->title('Title')->type('text')->required()->placeholder(),
-                Input::make('description')->title('Description')->type('text')->required(),
-                Picture::make('image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Picture::make('image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
-                Input::make('sort')->title('Sort')->type('text')->required(),
-
-
-
+                Input::make('advantage.title')->title('Title')->type('text')->required(),
+                Input::make('advantage.description')->title('Description')->type('text')->required(),
+                Picture::make('advantage.image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                Picture::make('advantage.image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                Input::make('advantage.sort')->title('Sort(Number)')->type('number')->required(),
             ]),
         ];
     }
-    public function save(Request $request, Advantages $item)
+    public function save(Request $request, Advantages $advantage)
     {
-        $item->fill($request->all())->save();
-        $item->save();
+        $advantage->fill($request->advantage)->save();
+        $advantage->save();
         return redirect()->route('platform.advantages.list');
-        Toast::info(__('Banner was saved'));
+        Toast::info(__('Advantages was saved'));
     }
 }

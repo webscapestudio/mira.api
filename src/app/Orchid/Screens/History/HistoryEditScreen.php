@@ -20,9 +20,11 @@ class HistoryEditScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(History $history): iterable
     {
-        return [];
+        return [
+            'history' => $history
+        ];
     }
 
     /**
@@ -58,21 +60,21 @@ class HistoryEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('year')->title('Year')->type('text')->required(),
-                Input::make('title')->title('Title')->type('text')->required(),
-                TextArea::make('description')->title('Description')->rows(5)->type('text')->required(),
-                Picture::make('image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
-                Picture::make('image_mob')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
+                Input::make('history.year')->title('Year')->type('number')->required(),
+                Input::make('history.title')->title('Title')->type('text')->required(),
+                TextArea::make('history.description')->title('Description')->rows(5)->type('text')->required(),
+                Picture::make('history.image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
+                Picture::make('history.image_mob')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
             ]),
 
 
         ];
     }
 
-    public function save(Request $request, History $item)
+    public function save(Request $request, History $history)
     {
-        $item->fill($request->all())->save();
-        $item->save();
+        $history->fill($request->history)->save();
+        $history->save();
         Toast::info(__('History was saved'));
         return redirect()->route('platform.history.list');
     }
