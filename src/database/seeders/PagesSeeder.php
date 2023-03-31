@@ -29,5 +29,12 @@ class PagesSeeder extends Seeder
                 'slug' => 'Work-with-us'
             ]
         ]);
+        DB::table('investments')->insert([
+            [
+                'title' => 'default',
+                'description' => 'default',
+                'image_desc' => 'default',
+            ]
+        ]);
     }
 }

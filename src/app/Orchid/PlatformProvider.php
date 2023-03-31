@@ -35,7 +35,7 @@ class PlatformProvider extends OrchidServiceProvider
             // //     ->route('platform.example')
             // //     ->title('Navigation')
             // //     ->badge(fn () => 6),
-
+            
             Menu::make('Pages')
                 ->icon('monitor')
                 ->route('platform.pages'),
@@ -43,6 +43,15 @@ class PlatformProvider extends OrchidServiceProvider
                 Menu::make('Gallery')
                 ->icon('picture')
                 ->route('platform.gallery.list'),
+
+
+                Menu::make('Investitions')
+                ->icon('chart')
+                ->list([
+                    Menu::make('Home')->route('platform.investments.edit', '1'),
+                    Menu::make('Advantages'),
+                    Menu::make('Strategies'),
+                ]),
 
             Menu::make('Blocks')
                 ->icon('code')
@@ -66,7 +75,10 @@ class PlatformProvider extends OrchidServiceProvider
                     ->route('platform.contacts.list'),
 
                 ]),
-
+                Menu::make('News')
+                ->icon('note'),
+                Menu::make('Vacancies')
+                ->icon('note'),
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')
             //     ->route('platform.example.advanced'),

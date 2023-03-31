@@ -16,9 +16,11 @@ use App\Orchid\Screens\Contacts\ContactsListScreen;
 use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
+use App\Orchid\Screens\Investments\InvestmentEditScreen;
 use App\Orchid\Screens\Manifesto\ManifestoEditScreen;
 use App\Orchid\Screens\Manifesto\ManifestoListScreen;
 use App\Orchid\Screens\Manifesto\ManifestoMainScreenn;
+use App\Orchid\Screens\PagesEditScreen;
 use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\Partners\PartnersEditScreen;
 use App\Orchid\Screens\Partners\PartnersListScreen;
@@ -44,6 +46,8 @@ use Tabuna\Breadcrumbs\Trail;
 
 // Pages
 Route::screen("pages", PagesScreen::class)->name('platform.pages');
+Route::screen('pages/{id}/edit', PagesEditScreen::class)
+    ->name('platform.pages.edit');
 // Gallery
 Route::screen("gallery", GalleryListScreen::class)->name('platform.gallery.list');
 // Banners
@@ -110,6 +114,11 @@ Route::screen('contacts/create', ContactsEditScreen::class)
 Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
     ->name('platform.contacts.edit');
 
+
+        // Investments
+Route::screen('investments/{id}/edit', InvestmentEditScreen::class)
+    ->name('platform.investments.edit');
+    
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');

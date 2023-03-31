@@ -3,6 +3,9 @@
 namespace App\Orchid\Layouts\Pages;
 
 use App\Models\Pages;
+use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -26,11 +29,20 @@ class PagesListLayout extends Table
     protected function columns(): iterable
     {
         return [
-            TD::make('title', "Title")->width('150px')->cantHide()->canSee(true),
-            TD::make('title', "URL")->render(function (Pages $page) {
-                return $page->title > 5 ? 'large' : 'small';
-            })->canSee(false),
-            TD::make('', 'Edit')->alignRight()
+            TD::make('title', "Title"),
+            TD::make('slug', "Slug"),
+            TD::make(__('Actions'))
+            ->align(TD::ALIGN_CENTER)
+            ->width('100px')
+            ->render(fn (Pages $pages) => DropDown::make()
+                ->icon('options-vertical')
+                ->list([
+
+                    Link::make(__('Edit'))
+                        ->route('platform.pages.edit', $pages->id)
+                        ->icon('pencil'),
+
+                ])),
         ];
     }
 }
