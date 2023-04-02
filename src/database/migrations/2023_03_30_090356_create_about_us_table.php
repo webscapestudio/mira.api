@@ -22,6 +22,15 @@ return new class extends Migration
             $table->string('image_mob');
             $table->timestamps();
         });
+        Schema::create('about_achievements', function (Blueprint $table) {
+            $table->id();
+            $table->string('number');
+            $table->string('addition');
+            $table->string('description');
+            $table->integer('about_achievementable_id');
+            $table->string('about_achievementable_type');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -31,6 +40,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('about_achievements');
         Schema::dropIfExists('about_us');
     }
 };

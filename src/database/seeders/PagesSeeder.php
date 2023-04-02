@@ -36,5 +36,25 @@ class PagesSeeder extends Seeder
                 'image_desc' => 'default',
             ]
         ]);
+        DB::table('contacts')->insert([
+            [
+                'address' => 'default',
+                'email' => 'default',
+                'phone' => 'default',
+                'created_at' => '2023-04-02 11:21:54',
+            ]
+        ]);
+        DB::table('manifestos')->insert([
+            [
+                'title' => 'default',
+                'description' => 'default',
+                'image_desc_title' => 'default',
+                'image_desc' => 'default',
+                'image_mob_title' => 'default',
+                'image_mob' => 'default',
+                'created_at' => '2023-04-02 11:21:54',
+
+            ]
+        ]);
     }
 }

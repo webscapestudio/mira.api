@@ -68,11 +68,11 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('History')
                         ->route('platform.history.list'),
                     Menu::make('Manifesto')
-                        ->route('platform.manifestos.list'),
+                        ->route('platform.manifestos.edit', '1'),
                     Menu::make('Partners')
                         ->route('platform.partners.list'),
                     Menu::make('Contacts')
-                    ->route('platform.contacts.list'),
+                    ->route('platform.contacts.edit', '1'),
 
                 ]),
                 Menu::make('News')

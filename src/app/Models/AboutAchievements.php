@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class Contacts extends Model
+class AboutAchievements extends Model
 {
     use HasFactory, AsSource;
 
-    public function social()
+    protected $fillable = ['number','addition','description'];
+    
+    public function about_achievementable()
     {
-        return $this->morphMany(Social::class, 'socialable');
+        return $this->morphTo();
     }
 }

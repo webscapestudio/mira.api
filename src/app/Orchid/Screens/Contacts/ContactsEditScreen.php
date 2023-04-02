@@ -6,10 +6,13 @@ use App\Models\Contacts;
 use App\Models\Social;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
+use Orchid\Screen\TD;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
@@ -21,11 +24,12 @@ class ContactsEditScreen extends Screen
      *
      * @return array
      */
-    public function query(Contacts $contact, Social $social): iterable
+    public function query(Contacts $contact): iterable
     {
+       
         return [
             'contact' => $contact,
-            'social' => $social,
+            'socials' => Social::all(),
         ];
     }
 
@@ -47,9 +51,9 @@ class ContactsEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            ModalToggle::make(__('Add new Social Media'))
+            Link::make(__('Add new Social Media'))
             ->icon('check')
-            ->modal('createSocial'),
+            ->route('platform.social.create'),
             Button::make(__('Save'))
             ->icon('check')
             ->method('createOrUpdate'),
@@ -67,32 +71,44 @@ class ContactsEditScreen extends Screen
             Layout::rows([
                 Input::make('contact.address')->title('Address')->type('text')->required(),
                 Input::make('contact.email')->title('Email')->type('text')->required(),
-                Input::make('contact.phone')->title('Phone')->type('text')->required(),
-                Relation::make('contact.social_id')
-                ->fromModel(Social::class, 'title')
-                ->multiple()
-                ->title('Select Social Networks')
+                Input::make('contact.phone')->title('Phone')->type('text')->required()
             ]),
-            Layout::modal('createSocial', 
-                Layout::rows([
-                        Input::make('social.title')->required()->title('Title'),
-                        Input::make('social.short_title')->required()->title('Short Title'),
-                        Input::make('social.url')->required()->title('Url'),
-                ]))->title('Сreate Social')->method('createOrUpdateSocial'),
+            Layout::table('socials', [
+                TD::make('title', 'title')->width('180px'),
+                TD::make('short_title', 'short_title')->width('grow'),
+                TD::make('url', 'url')->width('grow'),
+                TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
+                    return $date->created_at->diffForHumans();
+                }),
+                TD::make(__('Actions'))
+                    ->align(TD::ALIGN_CENTER)
+                    ->width('100px')
+                    ->render(fn (Social $social) => DropDown::make()
+                        ->icon('options-vertical')
+                        ->list([
+                            Button::make(__('Delete'))
+                                ->icon('trash')
+                                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                                ->method('deleteSocial', [
+                                    'id' => $social->id,
+                                ]),
+                        ])),
+                    ]),
+
         ];
     }
-    public function createOrUpdate(Contacts $contact, Request $request)
-    {        $contact->service()->syncWithoutDetaching(
-        $request->input('partner.social_id', [])
-    );
-        $contact->fill($request->get('contact'))->save();
-        return redirect()->route('platform.contacts.list');
-        Toast::info(__('Contact was saved'));
-    }
-    public function createOrUpdateSocial(Social $social, Request $request)
+
+    public function deleteSocial(Social $social): void
     {
-        dd($request->get('social'));
-        $social->fill($request->get('social'))->save();
+        $social = Social::find($social->id);
+        $social->delete();
+        Toast::info('Successfully deleted');
+    }
+    public function createOrUpdate(Contacts $contact, Request $request)
+    { 
+        $contact->fill($request->get('contact'))->save();
+
+        return redirect()->back();
         Toast::info(__('Contact was saved'));
     }
         

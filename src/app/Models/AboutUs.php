@@ -9,5 +9,9 @@ use Orchid\Screen\AsSource;
 class AboutUs extends Model
 {
     use HasFactory, AsSource;
-    protected $guarded = [];
+    protected $fillable = ['title', 'description', 'text_size', 'image_desc', 'image_mob'];
+    public function about_achievement()
+    {
+        return $this->morphMany(AboutAchievements::class, 'about_achievementable');
+    }
 }

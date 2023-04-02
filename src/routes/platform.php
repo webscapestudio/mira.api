@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\AboutUs\AboutAchievementsCreateScreen;
 use App\Orchid\Screens\AboutUs\AboutUsEditScreen;
 use App\Orchid\Screens\AboutUs\AboutUsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsEditScreen;
@@ -13,6 +14,7 @@ use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
 use App\Orchid\Screens\Contacts\ContactsEditScreen;
 use App\Orchid\Screens\Contacts\ContactsListScreen;
+use App\Orchid\Screens\Contacts\SocialsCreateScreen;
 use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
@@ -84,9 +86,6 @@ Route::screen('history/{id}/edit', HistoryEditScreen::class)
 
 
 // Manifesto
-Route::screen('manifestos', ManifestoListScreen::class)->name('platform.manifestos.list');
-Route::screen('manifestos/create', ManifestoEditScreen::class)
-    ->name('platform.manifestos.create');
 Route::screen('manifestos/{id}/edit', ManifestoEditScreen::class)
     ->name('platform.manifestos.edit');
 
@@ -103,14 +102,15 @@ Route::screen('partners/{id}/edit', PartnersEditScreen::class)
 Route::screen('about-us', AboutUsListScreen::class)->name('platform.about-us.list');
 Route::screen('about-us/create', AboutUsEditScreen::class)
     ->name('platform.about-us.create');
+Route::screen('about-us/{id}/about_achievement/create', AboutAchievementsCreateScreen::class)
+    ->name('platform.about_achievements.create');
 Route::screen('about-us/{id}/edit', AboutUsEditScreen::class)
     ->name('platform.about-us.edit');
 
 
         // Contacts
-Route::screen('contacts', ContactsListScreen::class)->name('platform.contacts.list');
-Route::screen('contacts/create', ContactsEditScreen::class)
-    ->name('platform.contacts.create');
+Route::screen('contacts/social/create', SocialsCreateScreen::class)
+    ->name('platform.social.create');
 Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
     ->name('platform.contacts.edit');
 

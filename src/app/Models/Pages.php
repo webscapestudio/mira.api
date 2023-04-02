@@ -9,7 +9,7 @@ use Orchid\Screen\AsSource;
 class Pages extends Model
 {
     use HasFactory, AsSource;
-
+    protected $table = 'pages';
     protected $fillable = [
         'title','slug','description'
     ];
