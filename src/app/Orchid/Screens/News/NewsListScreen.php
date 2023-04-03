@@ -61,7 +61,6 @@ class NewsListScreen extends Screen
                     ->render(function ($new) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$new->image_desc' />";
                     }),
-                TD::make('slug', 'Slug'),
                 TD::make('title', 'Title'),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
