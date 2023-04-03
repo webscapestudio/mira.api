@@ -34,7 +34,7 @@ class PartnersEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Partners';
+        return 'Partner Edit';
     }
 
     /**

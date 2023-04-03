@@ -138,9 +138,9 @@ Route::screen('investments/{id}/edit', InvestmentEditScreen::class)
     
 // Vacancies
 Route::screen('vacancies', VacanciesListScreen::class)->name('platform.vacancies.list');
-Route::screen('vacancies/create', VacanciesEditScreen::class)
+Route::screen('vacancy/create', VacanciesEditScreen::class)
     ->name('platform.vacancies.create');
-Route::screen('vacancies/{id}/edit', VacanciesEditScreen::class)
+Route::screen('vacancy/{id}/edit', VacanciesEditScreen::class)
     ->name('platform.vacancies.edit');
 
 // News

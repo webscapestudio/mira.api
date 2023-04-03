@@ -40,7 +40,7 @@ class ContactsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'ContactsEditScreen';
+        return 'Contact Edit';
     }
 
     /**

@@ -32,7 +32,7 @@ class AboutUsListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'About Us List Screen';
+        return 'About Us';
     }
 
     /**

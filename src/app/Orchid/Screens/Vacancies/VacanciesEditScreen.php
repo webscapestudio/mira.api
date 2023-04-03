@@ -33,7 +33,7 @@ class VacanciesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Vacancie Edit';
+        return 'Vacancy Edit';
     }
 
     /**

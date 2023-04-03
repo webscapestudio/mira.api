@@ -32,7 +32,7 @@ class StrategiesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Strategies Edit Screen';
+        return 'Strategies Edit';
     }
 
     /**

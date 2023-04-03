@@ -33,7 +33,7 @@ class SocialsCreateScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'ContactsEditScreen';
+        return 'Social Edit';
     }
 
     /**

@@ -32,7 +32,7 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages';
+        return 'Advantage';
     }
 
     /**

@@ -43,7 +43,7 @@ class AboutUsEditScreen extends Screen
      */
     public function name(): ?string 
     {
-        return 'AboutUsEditScreen';
+        return 'AboutUs';
     }
 
     /**

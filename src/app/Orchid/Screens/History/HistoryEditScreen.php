@@ -34,7 +34,7 @@ class HistoryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'History';
+        return 'History Edit';
     }
 
     /**

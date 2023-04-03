@@ -34,7 +34,7 @@ class BannersEdit extends Screen
      */
     public function name(): ?string
     {
-        return 'Banner';
+        return 'Banner Edit';
     }
 
     /**

@@ -33,7 +33,7 @@ class ManifestoEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Manifesto Edit Screen';
+        return 'Manifesto';
     }
 
     /**

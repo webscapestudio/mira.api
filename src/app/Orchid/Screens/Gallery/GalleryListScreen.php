@@ -33,7 +33,7 @@ class GalleryListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Gallery List Screen';
+        return 'Gallery';
     }
 
     /**
@@ -57,7 +57,7 @@ class GalleryListScreen extends Screen
             Layout::table('attachments', [
                 TD::make('path', 'Image')->width('100')
                     ->render(function ($attachment) {
-                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='/storage/$attachment->path$attachment->name$attachment->extension' />";
+                        return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='/storage/$attachment->path$attachment->name.$attachment->extension' />";
                     }),
                 TD::make('original_name', 'Name')->width('100')
                 ->render(function ($attachment) {

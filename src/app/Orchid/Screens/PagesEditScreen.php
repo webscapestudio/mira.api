@@ -32,7 +32,7 @@ class PagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'PagesEditScreen';
+        return 'Page Edit';
     }
 
     /**

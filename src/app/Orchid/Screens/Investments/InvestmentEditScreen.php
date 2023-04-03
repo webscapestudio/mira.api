@@ -33,7 +33,7 @@ class InvestmentEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'InvestmentEditScreen';
+        return 'Investment';
     }
 
     /**
