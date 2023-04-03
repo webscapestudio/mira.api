@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->string('image_desc');
             $table->boolean('is_last')->default(true);
             $table->timestamps();

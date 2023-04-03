@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('about_us', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('text_size');
             $table->string('image_desc');
             $table->string('image_mob');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('number');
             $table->string('addition');
-            $table->string('description');
+            $table->text('description');
             $table->integer('about_achievementable_id');
             $table->string('about_achievementable_type');
             $table->timestamps();

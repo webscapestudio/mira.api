@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invest_advantages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->integer('invest_advantageable_id');
             $table->string('invest_advantageable_type');
             $table->timestamps();

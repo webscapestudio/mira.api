@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invest_strategies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->integer('invest_strategieable_id');
             $table->string('invest_strategieable_type');
             $table->timestamps();

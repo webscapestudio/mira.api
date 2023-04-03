@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\Quill;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
@@ -60,7 +61,7 @@ class NewsEditScreen extends Screen
         return [
             Layout::rows([
                 Input::make('new.title')->title('Title')->type('text')->required(),
-                TextArea::make('new.content')->title('Content')->required(),
+                Quill::make('new.content')->title('Content')->required(),
                 Picture::make('new.image_desc')->title('Image')->required()->acceptedFiles('image/*,application/pdf,.psd'),
             ])
         ];
