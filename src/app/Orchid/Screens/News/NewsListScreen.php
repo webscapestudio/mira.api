@@ -63,7 +63,6 @@ class NewsListScreen extends Screen
                     }),
                 TD::make('slug', 'Slug'),
                 TD::make('title', 'Title'),
-                TD::make('content', 'Content'),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
@@ -80,7 +79,7 @@ class NewsListScreen extends Screen
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
-                                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                                ->confirm(__('Are you sure you want to delete the entry?'))
                                 ->method('remove', [
                                     'id' => $new->id,
                                 ]),

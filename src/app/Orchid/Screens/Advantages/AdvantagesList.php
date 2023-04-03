@@ -79,7 +79,7 @@ class AdvantagesList extends Screen
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
-                                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                                ->confirm(__('Are you sure you want to delete the entry?'))
                                 ->method('delete', [
                                     'id' => $advantage->id,
                                 ]),
