@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('manifestos', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('image_desc_title');
             $table->string('image_desc');
             $table->string('image_mob_title');

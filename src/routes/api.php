@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\PagesController;
-use App\Models\GeneralRequest;
-use App\Models\ResumeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +21,4 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 
 Route::apiResources([
     'pages' => PagesController::class,
-    'general_request' => GeneralRequest::class,
-    'resume_request' => ResumeRequest::class,
 ]);

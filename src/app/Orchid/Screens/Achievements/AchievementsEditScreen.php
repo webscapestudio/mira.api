@@ -68,7 +68,7 @@ class AchievementsEditScreen extends Screen
     public function createOrUpdate(Achievements $achievement, Request $request)
     {
         $achievement->fill($request->get('achievement'))->save();
-        return redirect()->route('platform.achievements.list');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.achievements.list');
     }
 }
