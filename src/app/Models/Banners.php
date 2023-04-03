@@ -10,5 +10,5 @@ use Orchid\Screen\AsSource;
 class Banners extends Model
 {
     use HasFactory, AsSource, Attachable;
-    protected $guarded = false;
+    protected $guarded = [];
 }

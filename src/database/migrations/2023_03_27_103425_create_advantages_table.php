@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('advantages', function (Blueprint $table) {
             $table->id();
-            $table->text("title");
+            $table->string("title");
             $table->text("description");
-            $table->text("image_desc");
-            $table->text("image_mob");
+            $table->string("image_desc");
+            $table->string("image_mob");
             $table->integer("sort");
             $table->timestamps();
         });

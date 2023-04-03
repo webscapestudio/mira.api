@@ -59,24 +59,21 @@ class GalleryListScreen extends Screen
                     ->render(function ($attachment) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='/storage/$attachment->path$attachment->name.$attachment->extension' />";
                     }),
-                TD::make('original_name', 'Name')->width('100')
-                ->render(function ($attachment) {
-                    return "$attachment->original_name";
-                }),
-                TD::make('original_name', 'Extension')->width('100')
-                ->render(function ($attachment) {
-                    return "$attachment->extension";
-                }),
+                TD::make('original_name', 'Name')->width('grow')
+                    ->render(function ($attachment) {
+                        return "$attachment->original_name";
+                    }),
+
                 TD::make('created_at', 'Uploaded')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
-                TD::make(__('Actions'))
-                    ->align(TD::ALIGN_CENTER)
+                TD::make(('Actions'))
+                    // ->align(TD::ALIGN_RIGHT)
                     ->width('100px')
                     ->render(fn (Attachment $attachment) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
-                            Button::make(__('Delete'))
+                            Button::make(('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Are you sure you want to delete the entry?'))
                                 ->method('remove', [
