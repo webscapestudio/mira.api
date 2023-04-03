@@ -69,7 +69,7 @@ class AdvantagesEditScreen extends Screen
     public function createOrUpdate(Advantages $advantage, Request $request)
     {
         $advantage->fill($request->get('advantage'))->save();
-        return redirect()->route('platform.advantages.list');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.advantages.list');
     }
 }

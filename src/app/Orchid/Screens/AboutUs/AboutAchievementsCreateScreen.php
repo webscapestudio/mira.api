@@ -75,8 +75,8 @@ class AboutAchievementsCreateScreen extends Screen
         ];
         $about_us = AboutUs::find('1');
         $about_us->about_achievement()->create($about_achievement)->save();
-        return redirect()->route('platform.about-us.edit','1');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.about-us.edit','1');
     }
      
 }

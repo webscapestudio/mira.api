@@ -107,9 +107,9 @@ class ContactsEditScreen extends Screen
     public function createOrUpdate(Contacts $contact, Request $request)
     { 
         $contact->fill($request->get('contact'))->save();
-
-        return redirect()->back();
         Toast::info(__('Successfully saved'));
+        return redirect()->back();
+      
     }
         
 }

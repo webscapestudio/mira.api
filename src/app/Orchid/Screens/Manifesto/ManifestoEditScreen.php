@@ -71,7 +71,7 @@ class ManifestoEditScreen extends Screen
     public function createOrUpdate(Manifesto $manifesto, Request $request)
     {
         $manifesto->fill($request->get('manifesto'))->save();
-        return redirect()->route('platform.manifestos.edit','1');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.manifestos.edit','1');
     }
 }

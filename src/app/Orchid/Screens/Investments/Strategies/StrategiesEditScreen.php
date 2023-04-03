@@ -60,7 +60,7 @@ class StrategiesEditScreen extends Screen
             Layout::rows([
                 Input::make('invest_strategie.title')->required()->title('Title'),
                 Input::make('invest_strategie.description')->required()->title('Description'),
-        ])->title('Сreate Strategie'),
+        ])->title('Сreate Strategy'),
         ];
     }
     public function createOrUpdate(InvestStrategies $invest_strategie, Request $request)
@@ -75,7 +75,7 @@ class StrategiesEditScreen extends Screen
         else:
             $investment->invest_strategie()->create($data)->save();
         endif;
-        return redirect()->route('platform.invest_strategies.list');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.invest_strategies.list');
     }
 }

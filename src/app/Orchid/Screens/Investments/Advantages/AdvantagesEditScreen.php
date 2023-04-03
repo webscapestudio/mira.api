@@ -75,7 +75,7 @@ class AdvantagesEditScreen extends Screen
         else:
             $investment->invest_advantage()->create($data)->save();
         endif;
-        return redirect()->route('platform.invest_advantages.list');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.invest_advantages.list');
     }
 }

@@ -114,7 +114,7 @@ class AboutUsEditScreen extends Screen
     public function createOrUpdate(AboutUs $about_us, Request $request)
     {
         $about_us->fill($request->get('about_us'))->save();
-        return redirect()->route('platform.about-us.list');
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.about-us.list');
     }
 }

@@ -68,7 +68,7 @@ class InvestmentEditScreen extends Screen
     public function update(Investment $investment, Request $request)
     {
         $investment->fill($request->get('investment'))->update();
-        return redirect()->back();
         Toast::info(__('Successfully saved'));
+        return redirect()->back();
     }
 }
