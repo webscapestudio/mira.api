@@ -74,7 +74,7 @@ class HistoryEditScreen extends Screen
     public function createOrUpdate(History $history, Request $request)
     {
         $history->fill($request->get('history'))->save();
-        Toast::info(__('History was saved'));
+        Toast::info(__('Successfully saved'));
         return redirect()->route('platform.history.list');
     }
 }

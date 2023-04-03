@@ -18,7 +18,7 @@ class BannersList extends Screen
      * Fetch data to be displayed on the screen.
      *
      * @return array
-     */
+     */ 
     public function query(): iterable
     {
         return ['banners' => Banners::all()];
@@ -88,6 +88,6 @@ class BannersList extends Screen
     public function remove(Request $request): void
     {
         Banners::findOrFail($request->get('id'))->delete();
-        Toast::info(__('Banner was removed'));
+        Toast::info(__('Successfully removed'));
     }
 }

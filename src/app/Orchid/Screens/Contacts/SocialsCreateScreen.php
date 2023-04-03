@@ -75,7 +75,7 @@ class SocialsCreateScreen extends Screen
         $contact = Contacts::find('1');
         $contact->social()->create($social)->save();
         return redirect()->route('platform.contacts.edit','1');
-        Toast::info(__('Contact was saved'));
+        Toast::info(__('Successfully saved'));
     }
      
 }

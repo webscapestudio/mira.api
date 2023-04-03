@@ -88,6 +88,6 @@ class PartnersListScreen extends Screen
     public function remove(Request $request): void
     {
         Partners::findOrFail($request->get('id'))->delete();
-        Toast::info(__('Partner was removed'));
+        Toast::info(__('Successfully removed'));
     }
 }

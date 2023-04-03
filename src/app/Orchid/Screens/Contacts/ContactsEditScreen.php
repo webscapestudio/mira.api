@@ -109,7 +109,7 @@ class ContactsEditScreen extends Screen
         $contact->fill($request->get('contact'))->save();
 
         return redirect()->back();
-        Toast::info(__('Contact was saved'));
+        Toast::info(__('Successfully saved'));
     }
         
 }

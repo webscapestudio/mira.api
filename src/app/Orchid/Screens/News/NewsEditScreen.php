@@ -1,26 +1,28 @@
 <?php
 
-namespace App\Orchid\Screens\Achievements;
+namespace App\Orchid\Screens\News;
 
-use App\Models\Achievements;
+use App\Models\News;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
-use Orchid\Screen\Screen;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\TextArea;
+use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
-use Illuminate\Http\Request;
 
-class AchievementsEditScreen extends Screen
+class NewsEditScreen extends Screen
 {
-    /**
+    /** 
      * Fetch data to be displayed on the screen.
      *
      * @return array
      */
-    public function query(Achievements $achievement): iterable
+    public function query(News $new): iterable
     {
         return [
-            'achievement' => $achievement
+            'new' => $new
         ];
     }
 
@@ -31,7 +33,7 @@ class AchievementsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Achievements';
+        return 'New Edit';
     }
 
     /**
@@ -43,8 +45,8 @@ class AchievementsEditScreen extends Screen
     {
         return [
             Button::make(__('Save'))
-                ->icon('check')
-                ->method('createOrUpdate'),
+            ->icon('check')
+            ->method('createOrUpdate'),
         ];
     }
 
@@ -57,18 +59,17 @@ class AchievementsEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('achievement.number')->title('Number')->type('number')->required(),
-                Input::make('achievement.addition')->title('Number text')->type('text')->required(),
-                Input::make('achievement.description')->title('Description')->type('text')->required(),
-            ]),
+                Input::make('new.title')->title('Title')->type('text')->required(),
+                TextArea::make('new.content')->title('Content')->required(),
+                Picture::make('new.image_desc')->title('Image')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+            ])
         ];
     }
-
-
-    public function createOrUpdate(Achievements $achievement, Request $request)
+    public function createOrUpdate(News $new, Request $request)
     {
-        $achievement->fill($request->get('achievement'))->save();
-        return redirect()->route('platform.achievements.list');
+        $new->fill($request->get('new'))->save();
+
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.news.list');
     }
 }

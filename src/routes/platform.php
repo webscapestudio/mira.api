@@ -13,15 +13,18 @@ use App\Orchid\Screens\Advantages\AdvantagesList;
 use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
 use App\Orchid\Screens\Contacts\ContactsEditScreen;
-use App\Orchid\Screens\Contacts\ContactsListScreen;
 use App\Orchid\Screens\Contacts\SocialsCreateScreen;
 use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
+use App\Orchid\Screens\Investments\Advantages\AdvantagesEditScreen as AdvantagesAdvantagesEditScreen;
+use App\Orchid\Screens\Investments\Advantages\AdvantagesListScreen;
 use App\Orchid\Screens\Investments\InvestmentEditScreen;
+use App\Orchid\Screens\Investments\Strategies\StrategiesEditScreen;
+use App\Orchid\Screens\Investments\Strategies\StrategiesListScreen;
 use App\Orchid\Screens\Manifesto\ManifestoEditScreen;
-use App\Orchid\Screens\Manifesto\ManifestoListScreen;
-use App\Orchid\Screens\Manifesto\ManifestoMainScreenn;
+use App\Orchid\Screens\News\NewsEditScreen;
+use App\Orchid\Screens\News\NewsListScreen;
 use App\Orchid\Screens\PagesEditScreen;
 use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\Partners\PartnersEditScreen;
@@ -32,6 +35,8 @@ use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\Vacancies\VacanciesEditScreen;
+use App\Orchid\Screens\Vacancies\VacanciesListScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -118,7 +123,33 @@ Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
         // Investments
 Route::screen('investments/{id}/edit', InvestmentEditScreen::class)
     ->name('platform.investments.edit');
+
+    Route::screen('investments/invest_advantages', AdvantagesListScreen::class)->name('platform.invest_advantages.list');
+    Route::screen('investments/invest_advantages/create', AdvantagesAdvantagesEditScreen::class)
+    ->name('platform.invest_advantages.create');
+    Route::screen('investments/{id}/invest_advantages/edit', AdvantagesAdvantagesEditScreen::class)
+    ->name('platform.invest_advantages.edit');
+
+    Route::screen('investments/invest_strategies', StrategiesListScreen::class)->name('platform.invest_strategies.list');
+    Route::screen('investments/invest_strategies/create', StrategiesEditScreen::class)
+    ->name('platform.invest_strategies.create');
+    Route::screen('investments/{id}/invest_strategies/edit', StrategiesEditScreen::class)
+    ->name('platform.invest_strategies.edit');
     
+// Vacancies
+Route::screen('vacancies', VacanciesListScreen::class)->name('platform.vacancies.list');
+Route::screen('vacancies/create', VacanciesEditScreen::class)
+    ->name('platform.vacancies.create');
+Route::screen('vacancies/{id}/edit', VacanciesEditScreen::class)
+    ->name('platform.vacancies.edit');
+
+// News
+Route::screen('news', NewsListScreen::class)->name('platform.news.list');
+Route::screen('news/create', NewsEditScreen::class)
+    ->name('platform.news.create');
+Route::screen('news/{id}/edit', NewsEditScreen::class)
+    ->name('platform.news.edit');
+
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');

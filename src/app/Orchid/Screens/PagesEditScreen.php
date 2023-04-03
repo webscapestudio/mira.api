@@ -68,6 +68,6 @@ class PagesEditScreen extends Screen
     {
         $pages->fill($request->get('pages'))->save();
         return redirect()->route('platform.pages');
-        Toast::info(__('Manifesto was saved'));
+        Toast::info(__('Successfully saved'));
     }
 }

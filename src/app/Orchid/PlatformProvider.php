@@ -48,9 +48,9 @@ class PlatformProvider extends OrchidServiceProvider
                 Menu::make('Investitions')
                 ->icon('chart')
                 ->list([
-                    Menu::make('Home')->route('platform.investments.edit', '1'),
-                    Menu::make('Advantages'),
-                    Menu::make('Strategies'),
+                    Menu::make('Main page')->route('platform.investments.edit', '1'),
+                    Menu::make('Advantages')->route('platform.invest_advantages.list'),
+                    Menu::make('Strategies')->route('platform.invest_strategies.list'),
                 ]),
 
             Menu::make('Blocks')
@@ -76,9 +76,9 @@ class PlatformProvider extends OrchidServiceProvider
 
                 ]),
                 Menu::make('News')
-                ->icon('note'),
-                Menu::make('Vacancies')
-                ->icon('note'),
+                ->icon('speech')->route('platform.news.list'),
+                Menu::make('Vacancies')->icon('note')->route('platform.vacancies.list'),
+
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')
             //     ->route('platform.example.advanced'),

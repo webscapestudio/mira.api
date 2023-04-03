@@ -56,7 +56,7 @@ class AboutUsEditScreen extends Screen
         return [
             Link::make(__('Add new Achievement'))
             ->icon('check')
-            ->route('platform.about_achievements.create', $this->about_us->id),
+            ->route('platform.about_achievements.create', $this->about_us->id), // ??????????????
             Button::make(__('Save'))
             ->icon('check')
             ->method('createOrUpdate'),

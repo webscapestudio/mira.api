@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Orchid\Screens\Investments;
+namespace App\Orchid\Screens\Vacancies;
 
-use App\Models\Investment;
+use App\Models\Vacancies;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
@@ -12,18 +12,18 @@ use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class InvestmentEditScreen extends Screen
+class VacanciesEditScreen extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
      */
-    public function query(Investment $investment): iterable
+    public function query(Vacancies $vacancie): iterable
     {
         return [
-            'investment' => $investment
-        ];
+            'vacancie' => $vacancie
+        ]; 
     }
 
     /**
@@ -33,7 +33,7 @@ class InvestmentEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'InvestmentEditScreen';
+        return 'Vacancie Edit';
     }
 
     /**
@@ -46,7 +46,7 @@ class InvestmentEditScreen extends Screen
         return [
             Button::make(__('Save'))
             ->icon('check')
-            ->method('update'),
+            ->method('createOrUpdate'),
         ];
     }
 
@@ -59,16 +59,17 @@ class InvestmentEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('investment.title')->title('Title')->type('text')->required(),
-                TextArea::make('investment.description')->title('Description')->type('text')->required(),
-                Picture::make('investment.image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
-            ]),
+                Input::make('vacancie.title')->title('Title')->type('text')->required(),
+                TextArea::make('vacancie.content')->title('Content')->required(),
+                Picture::make('vacancie.image_desc')->title('Image')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+            ])
         ];
     }
-    public function update(Investment $investment, Request $request)
+    public function createOrUpdate(Vacancies $vacancie, Request $request)
     {
-        $investment->fill($request->get('investment'))->update();
-        return redirect()->back();
+        $vacancie->fill($request->get('vacancie'))->save();
+
         Toast::info(__('Successfully saved'));
+        return redirect()->route('platform.vacancies.list');
     }
 }

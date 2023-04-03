@@ -74,7 +74,7 @@ class BannersEdit extends Screen
     public function createOrUpdate(Banners $banner, Request $request)
     {
         $banner->fill($request->get('banner'))->save();
-        Toast::info(__('Banner was saved'));
+        Toast::info(__('Successfully saved'));
         return redirect()->route('platform.banners.list');
     }
 }

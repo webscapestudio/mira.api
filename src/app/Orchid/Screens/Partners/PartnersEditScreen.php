@@ -77,7 +77,7 @@ class PartnersEditScreen extends Screen
             $request->input('partner.attachment', [])
         );
     
-        Toast::info(__('Partners was saved'));
+        Toast::info(__('Successfully saved'));
         return redirect()->route('platform.partners.list');
     }
 }
