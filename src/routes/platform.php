@@ -107,10 +107,10 @@ Route::screen('partners/{id}/edit', PartnersEditScreen::class)
 Route::screen('about-us', AboutUsListScreen::class)->name('platform.about-us.list');
 Route::screen('about-us/create', AboutUsEditScreen::class)
     ->name('platform.about-us.create');
-Route::screen('about-us/{id}/about_achievement/create', AboutAchievementsCreateScreen::class)
-    ->name('platform.about_achievements.create');
 Route::screen('about-us/{id}/edit', AboutUsEditScreen::class)
     ->name('platform.about-us.edit');
+Route::screen('about-us/{id}/about_achievement/create', AboutAchievementsCreateScreen::class)
+    ->name('platform.about_achievements.create');
 
 
         // Contacts
