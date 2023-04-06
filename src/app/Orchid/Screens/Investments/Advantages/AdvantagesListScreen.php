@@ -57,8 +57,8 @@ class AdvantagesListScreen extends Screen
     {
         return [
             Layout::table('invest_advantages', [
-                TD::make('title', 'Title'),
-                TD::make('description', 'Description'),
+                TD::make('title', 'Title')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('description', 'Description')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
