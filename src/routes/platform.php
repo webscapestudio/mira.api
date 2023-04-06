@@ -32,6 +32,8 @@ use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\Partners\PartnersEditScreen;
 use App\Orchid\Screens\Partners\PartnersListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Requests\GeneralRequestsListScreen;
+use App\Orchid\Screens\Requests\ResumeRequestsListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -156,6 +158,9 @@ Route::screen('news/create', NewsEditScreen::class)
     ->name('platform.news.create');
 Route::screen('news/{id}/edit', NewsEditScreen::class)
     ->name('platform.news.edit');
+
+Route::screen('general_requests', GeneralRequestsListScreen::class)->name('platform.general_request.list');
+Route::screen('resume_requests', ResumeRequestsListScreen::class)->name('platform.resume_request.list');
 
 // Main
 Route::screen('/main', PlatformScreen::class)
