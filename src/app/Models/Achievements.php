@@ -17,7 +17,7 @@ class Achievements extends Model
         'addition',
         'description'
     ];
-    protected $allowedSorts = ['number','addition'];
-    protected $allowedFilters = ['description'];
+    protected $allowedSorts = ['number','addition','description'];
+    protected $allowedFilters = ['number','description'];
 
 }

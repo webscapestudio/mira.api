@@ -23,7 +23,7 @@ class AchievementsScreen extends Screen
     public function query(): iterable
     {
         return [
-            'achievements' => Achievements::all()
+            'achievements' => Achievements::filters()->paginate(10)
         ];
     }
 
@@ -58,9 +58,9 @@ class AchievementsScreen extends Screen
     {
         return [
             Layout::table('achievements', [
-                TD::make('number', "Number")->width('100px'),
-                TD::make('addition', "Addition")->width('120px'),
-                TD::make('description', "Description")->width('grow'),
+                TD::make('number', "Number")->width('100px')->sort()->filter(TD::FILTER_NUMERIC),
+                TD::make('addition', "Addition")->width('120px')->sort(),
+                TD::make('description', "Description")->width('grow')->sort(),
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
                     ->width('100px')

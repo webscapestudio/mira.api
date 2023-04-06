@@ -22,7 +22,7 @@ class VacanciesListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'vacancies' => Vacancies::all()
+            'vacancies' => Vacancies::filters()->paginate(10)
         ];
     }
 
@@ -61,7 +61,7 @@ class VacanciesListScreen extends Screen
                     ->render(function ($vacancie) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$vacancie->image_desc' />";
                     }),
-                TD::make('title', 'Title'),
+                TD::make('title', 'Title')->sort()->filter(TD::FILTER_TEXT),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),

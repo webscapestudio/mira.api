@@ -22,7 +22,7 @@ class AdvantagesListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'invest_advantages' => InvestAdvantages::all()
+            'invest_advantages' => InvestAdvantages::filters()->paginate(10)
         ];
     }
 

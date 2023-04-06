@@ -5,9 +5,11 @@ namespace App\Orchid\Screens\AboutUs;
 use App\Models\AboutAchievements;
 use App\Models\AboutUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Select;
@@ -19,7 +21,7 @@ use Orchid\Support\Facades\Toast;
 
 class AboutUsEditScreen extends Screen
 {
-        /**
+    /**
      * @var AboutUs
      */
     public $about_us;
@@ -32,7 +34,7 @@ class AboutUsEditScreen extends Screen
     {
         return [
             'about_us' => $about_us,
-            'about_achievements' => AboutAchievements::all(),
+            'about_achievements' => AboutAchievements::where('about_achievementable_id',  $about_us->id)->filters()->paginate(10),
         ];
     }
 
@@ -41,7 +43,7 @@ class AboutUsEditScreen extends Screen
      *
      * @return string|null
      */
-    public function name(): ?string 
+    public function name(): ?string
     {
         return 'AboutUs';
     }
@@ -53,14 +55,23 @@ class AboutUsEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [
-            Link::make(__('Add new Achievement'))
-            ->icon('check')
-            ->route('platform.about_achievements.create', $this->about_us->id), // ??????????????
-            Button::make(__('Save'))
-            ->icon('check')
-            ->method('createOrUpdate'),
-        ];
+        if (Route::currentRouteName() === 'platform.about-us.create') :
+            return [
+                Button::make(__('Save'))
+                    ->icon('check')
+                    ->method('createOrUpdate'),
+            ];
+        else :
+            return [
+                Link::make(__('Add new Achievement'))
+                    ->icon('check')
+                    ->route('platform.about_achievements.create', $this->about_us->id),
+
+                Button::make(__('Save'))
+                    ->icon('check')
+                    ->method('createOrUpdate'),
+            ];
+        endif;
     }
 
     /**
@@ -75,40 +86,48 @@ class AboutUsEditScreen extends Screen
                 Input::make('about_us.title')->title('Title')->type('text')->required(),
                 TextArea::make('about_us.description')->title('Description')->type('text')->required(),
                 Select::make('about_us.text_size')
-                ->options([
-                    'big'   => 'Big',
-                    'small' => 'Small',
-                ])->title('Text size')->required(),
+                    ->options([
+                        'big'   => 'Big',
+                        'small' => 'Small',
+                    ])->title('Text size')->required(),
                 Picture::make('about_us.image_desc')->title('Image desktop')->acceptedFiles('image/*,application/pdf,.psd')->required(),
                 Picture::make('about_us.image_mob')->title('Image mobile')->acceptedFiles('image/*,application/pdf,.psd')->required(),
             ]),
+
             Layout::table('about_achievements', [
-                TD::make('number', 'Number')->width('180px'),
-                TD::make('addition', 'Addition')->width('grow'),
-                TD::make('description', 'Description')->width('grow'),
+                TD::make('number', 'Number')->width('180px')->sort()->filter(TD::FILTER_NUMERIC),
+                TD::make('addition', 'Addition')->width('grow')->sort(),
+                TD::make('description', 'Description')->width('grow')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
+
                 TD::make(__('Actions'))
                     ->align(TD::ALIGN_CENTER)
                     ->width('100px')
-                    ->render(fn (AboutAchievements $about_achievements) => DropDown::make()
+                    ->render(fn (AboutAchievements $about_achievement) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
+                            Link::make(__('Edit'))
+                                ->icon('pencil')
+                                ->route('platform.about_achievements.edit', [
+                                    'id_about_us' =>$this->about_us->id,
+                                    'id' => $about_achievement->id
+                                ]),
                             Button::make(__('Delete'))
                                 ->icon('trash')
-                                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                                ->method('deleteSocial', [
-                                    'id' => $about_achievements->id,
+                                ->confirm(__('Are you sure you want to delete the entry?'))
+                                ->method('deleteAchievement', [
+                                    'id' => $about_achievement->id,
                                 ]),
                         ])),
-                    ]),
+            ]),
         ];
     }
-    public function deleteSocial(AboutAchievements $about_achievements): void
+
+    public function deleteAchievement(Request $request): void
     {
-        $about_achievements = AboutAchievements::find($about_achievements->id);
-        $about_achievements->delete();
+        AboutAchievements::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
     public function createOrUpdate(AboutUs $about_us, Request $request)

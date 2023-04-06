@@ -21,7 +21,7 @@ class BannersList extends Screen
      */ 
     public function query(): iterable
     {
-        return ['banners' => Banners::all()];
+        return ['banners' => Banners::filters()->paginate(10)];
     }
 
     /**
@@ -59,8 +59,8 @@ class BannersList extends Screen
                     ->render(function ($banner) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$banner->image_desc' />";
                     }),
-                TD::make('title_first', 'Title first'),
-                TD::make('title_second', 'Title second'),
+                TD::make('title_first', 'Title first')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('title_second', 'Title second')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),

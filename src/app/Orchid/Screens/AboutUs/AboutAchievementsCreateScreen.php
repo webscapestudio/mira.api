@@ -13,16 +13,20 @@ use Orchid\Support\Facades\Toast;
 
 class AboutAchievementsCreateScreen extends Screen
 {
-
+   /**
+     * @var AboutUs
+     */
+    public $about_us;
+    /**
    /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
      */
-    public function query(AboutAchievements $about_achievement): iterable
+    public function query(AboutUs $about_us): iterable
     {
         return [
-            'about_achievement' => $about_achievement,
+            'about_us' => $about_us,
         ];
     }
 
@@ -46,7 +50,7 @@ class AboutAchievementsCreateScreen extends Screen
         return [
             Button::make(__('Save'))
             ->icon('check')
-            ->method('createOrUpdateAboutAchievements'),
+            ->method('createAboutAchievements'),
         ];
     }
 
@@ -58,25 +62,29 @@ class AboutAchievementsCreateScreen extends Screen
     public function layout(): iterable
     {
         return [ 
-                Layout::rows([
-                        Input::make('about_achievement.number')->required()->title('Title'),
-                        Input::make('about_achievement.addition')->required()->title('Short Title'),
-                        Input::make('about_achievement.description')->required()->title('Url'),
-                ])->title('Сreate About Achievements'),
+
+            Layout::rows([
+                Input::make('number')->required()->title('Title'),
+                Input::make('addition')->required()->title('Short Title'),
+                Input::make('description')->required()->title('Url'),
+        ]),
+
         ];
     }
-    public function createOrUpdateAboutAchievements($about_us, Request $request)
+
+
+    public function createAboutAchievements($about_us, Request $request)
     {
-        dd($about_us);
+
         $about_achievement = [
-            'number' => $request->about_achievement['number'],
-            'addition' => $request->about_achievement['addition'],
-            'description' => $request->about_achievement['description']
+            'number' => $request['number'],
+            'addition' => $request['addition'],
+            'description' => $request['description']
         ];
-        $about_us = AboutUs::find('1');
+        $about_us = AboutUs::find($about_us);
         $about_us->about_achievement()->create($about_achievement)->save();
         Toast::info(__('Successfully saved'));
-        return redirect()->route('platform.about-us.edit','1');
+        return redirect()->route('platform.about-us.edit', $about_us->id);
     }
-     
+
 }

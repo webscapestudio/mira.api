@@ -4,14 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 class InvestAdvantages extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource,Filterable;
 
     protected $fillable = ['title','description'];
 
+    protected $allowedSorts = [
+        'title',
+        'description'
+    ];
+    protected $allowedFilters = ['title'];
     public function invest_advantageable()
     {
         return $this->morphTo();

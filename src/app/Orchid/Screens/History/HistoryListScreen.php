@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\History;
 
 use App\Models\History;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -21,7 +22,7 @@ class HistoryListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'history' => History::all()
+            'history' => History::filters()->paginate(10)
         ];
     }
 
@@ -58,9 +59,9 @@ class HistoryListScreen extends Screen
                     ->render(function ($history) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$history->image_desc' />";
                     }),
-                    TD::make('year', 'Year')->width('180px'),
-                TD::make('title', 'Title')->width('180px'),
-                TD::make('description', 'Description')->width('grow'),
+                    TD::make('year', 'Year')->width('180px')->sort(),
+                TD::make('title', 'Title')->width('180px')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('description', 'Description')->width('grow')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
@@ -85,10 +86,9 @@ class HistoryListScreen extends Screen
         ];
     }
 
-    public function delete(History $history): void
+    public function delete(Request $request): void
     {
-        $history = History::find($history->id);
-        $history->delete();
+        History::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
 }

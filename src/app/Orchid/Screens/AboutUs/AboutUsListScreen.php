@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\AboutUs;
 
 use App\Models\AboutUs;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -21,7 +22,7 @@ class AboutUsListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'about_us' => AboutUs::all()
+            'about_us' => AboutUs::filters()->paginate(10)
         ];
     }
 
@@ -60,8 +61,8 @@ class AboutUsListScreen extends Screen
                     ->render(function ($about_us) {
                         return "<img  class='mw-80 d-block img-fluid rounded-1 w-80' src='$about_us->image_desc' />";
                     }),
-                TD::make('title', 'Title')->width('180px'),
-                TD::make('description', 'Description')->width('grow'),
+                TD::make('title', 'Title')->width('180px')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('description', 'Description')->width('grow')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
@@ -73,7 +74,9 @@ class AboutUsListScreen extends Screen
                         ->list([
 
                             Link::make(__('Edit'))
-                                ->route('platform.about-us.edit', $about_us->id)
+                                ->route('platform.about-us.edit', [
+                                    'id_about_us'=>$about_us->id
+                                ])
                                 ->icon('pencil'),
 
                             Button::make(__('Delete'))
@@ -87,10 +90,9 @@ class AboutUsListScreen extends Screen
         ];
     }
 
-    public function delete(AboutUs $about_us): void
+    public function delete(Request $request): void
     {
-        $about_us = AboutUs::find($about_us->id);
-        $about_us->delete();
+        AboutUs::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
 }

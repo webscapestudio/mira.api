@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 class Vacancies extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource,Filterable;
+ 
     protected $guarded = [];
+    protected $fillable = ['title','content','image_desc'];
+
+    protected $allowedSorts = [
+        'title',
+        'content',
+    ];
+    protected $allowedFilters = ['title'];
 }

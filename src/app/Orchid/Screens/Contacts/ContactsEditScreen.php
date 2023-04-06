@@ -29,7 +29,7 @@ class ContactsEditScreen extends Screen
        
         return [
             'contact' => $contact,
-            'socials' => Social::all(),
+            'socials' => Social::filters()->paginate(10),
         ];
     }
 
@@ -40,7 +40,7 @@ class ContactsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Contact Edit';
+        return 'Contacts';
     }
 
     /**
@@ -74,9 +74,9 @@ class ContactsEditScreen extends Screen
                 Input::make('contact.phone')->title('Phone')->type('text')->required()
             ]),
             Layout::table('socials', [
-                TD::make('title', 'title')->width('180px'),
-                TD::make('short_title', 'short_title')->width('grow'),
-                TD::make('url', 'url')->width('grow'),
+                TD::make('title', 'title')->width('180px')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('short_title', 'short_title')->width('grow')->sort(),
+                TD::make('url', 'url')->width('grow')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
@@ -86,6 +86,12 @@ class ContactsEditScreen extends Screen
                     ->render(fn (Social $social) => DropDown::make()
                         ->icon('options-vertical')
                         ->list([
+                            Link::make(__('Edit'))
+                            ->icon('pencil')
+                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                            ->route('platform.social.edit', [
+                                'id' => $social->id,
+                            ]),
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
@@ -98,10 +104,9 @@ class ContactsEditScreen extends Screen
         ];
     }
 
-    public function deleteSocial(Social $social): void
+    public function deleteSocial(Request $request): void
     {
-        $social = Social::find($social->id);
-        $social->delete();
+        Social::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
     public function createOrUpdate(Contacts $contact, Request $request)

@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\Advantages;
 
 use App\Models\Advantages;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -21,7 +22,7 @@ class AdvantagesList extends Screen
     public function query(): iterable
     {
         return [
-            "advantages" => Advantages::all()
+            "advantages" => Advantages::filters()->paginate(10)
         ];
     }
 
@@ -60,9 +61,9 @@ class AdvantagesList extends Screen
                     ->render(function ($advantage) {
                         return "<img  class='mw-80 d-block img-fluid rounded-1 w-80' src='$advantage->image_desc' />";
                     }),
-                TD::make('title', 'Title')->width('180px'),
+                TD::make('title', 'Title')->width('180px')->sort()->filter(TD::FILTER_TEXT),
                 TD::make('sort', 'Order')->align(TD::ALIGN_CENTER)->width('100px'),
-                TD::make('description', 'Description')->width('grow'),
+                TD::make('description', 'Description')->width('grow')->sort(),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),
@@ -88,10 +89,9 @@ class AdvantagesList extends Screen
         ];
     }
 
-    public function delete(Advantages $advantage): void
+    public function delete(Request $request): void
     {
-        $advantage = Advantages::find($advantage->id);
-        $advantage->delete();
+        Advantages::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
 }

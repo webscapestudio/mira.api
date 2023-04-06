@@ -22,7 +22,7 @@ class StrategiesListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'invest_strategies' => InvestStrategies::all()
+            'invest_strategies' => InvestStrategies::filters()->paginate(10)
         ];
     }
 

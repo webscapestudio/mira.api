@@ -22,7 +22,7 @@ class GalleryListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'attachments' => Attachment::all()
+            'attachments' => Attachment::filters()->paginate(10)
         ];
     }
 
@@ -62,7 +62,7 @@ class GalleryListScreen extends Screen
                 TD::make('original_name', 'Name')->width('grow')
                     ->render(function ($attachment) {
                         return "$attachment->original_name";
-                    }),
+                    })->sort()->filter(TD::FILTER_TEXT),
 
                 TD::make('created_at', 'Uploaded')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();

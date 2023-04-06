@@ -11,10 +11,9 @@ use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class SocialsCreateScreen extends Screen
+class SocialsEditScreen extends Screen
 {
-
-   /**
+    /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
@@ -29,11 +28,11 @@ class SocialsCreateScreen extends Screen
     /**
      * The name of the screen displayed in the header.
      *
-     * @return string|null 
+     * @return string|null
      */
     public function name(): ?string
     {
-        return 'Social Create'; 
+        return 'Social Edit';
     }
 
     /**
@@ -46,7 +45,7 @@ class SocialsCreateScreen extends Screen
         return [
             Button::make(__('Save'))
             ->icon('check')
-            ->method('createSocial'),
+            ->method('updateSocial'),
         ];
     }
 
@@ -57,25 +56,24 @@ class SocialsCreateScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [ 
-                Layout::rows([
-                        Input::make('social.title')->required()->title('Title'),
-                        Input::make('social.short_title')->required()->title('Short Title'),
-                        Input::make('social.url')->required()->title('Url'),
-                ])->title('Сreate Social'),
+        return [
+            Layout::rows([
+                Input::make('social.title')->required()->title('Title'),
+                Input::make('social.short_title')->required()->title('Short Title'),
+                Input::make('social.url')->required()->title('Url'),
+        ])->title('Edit Social'),
         ];
     }
-    public function createSocial( Request $request)
+    public function updateSocial($social_id, Request $request)
     {
-        $social = [
+        $social = Social::find($social_id);
+        $data = [
             'title' => $request->social['title'],
             'short_title' => $request->social['short_title'],
             'url' => $request->social['url']
         ];
-        $contact = Contacts::find('1');
-        $contact->social()->create($social)->save();
+        $social->update($data);
         return redirect()->route('platform.contacts.edit','1');
         Toast::info(__('Successfully saved'));
     }
-     
 }

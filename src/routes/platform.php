@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Orchid\Screens\AboutUs\AboutAchievementsCreateScreen;
+use App\Orchid\Screens\AboutUs\AboutAchievementsEditScreen;
 use App\Orchid\Screens\AboutUs\AboutUsEditScreen;
 use App\Orchid\Screens\AboutUs\AboutUsListScreen;
 use App\Orchid\Screens\Achievements\AchievementsEditScreen;
@@ -14,6 +15,7 @@ use App\Orchid\Screens\Banners\BannersEdit;
 use App\Orchid\Screens\Banners\BannersList;
 use App\Orchid\Screens\Contacts\ContactsEditScreen;
 use App\Orchid\Screens\Contacts\SocialsCreateScreen;
+use App\Orchid\Screens\Contacts\SocialsEditScreen;
 use App\Orchid\Screens\Gallery\GalleryListScreen;
 use App\Orchid\Screens\History\HistoryEditScreen;
 use App\Orchid\Screens\History\HistoryListScreen;
@@ -104,18 +106,23 @@ Route::screen('partners/{id}/edit', PartnersEditScreen::class)
 
 
     // AboutUs
-Route::screen('about-us', AboutUsListScreen::class)->name('platform.about-us.list');
-Route::screen('about-us/create', AboutUsEditScreen::class)
-    ->name('platform.about-us.create');
-Route::screen('about-us/{id}/edit', AboutUsEditScreen::class)
-    ->name('platform.about-us.edit');
-Route::screen('about-us/{id}/about_achievement/create', AboutAchievementsCreateScreen::class)
-    ->name('platform.about_achievements.create');
-
+    Route::group(['namespace' => 'AboutUs', 'prefix' => 'about-us'], function () {
+        Route::screen('/all', AboutUsListScreen::class)->name('platform.about-us.list');
+        Route::screen('/create', AboutUsEditScreen::class)->name('platform.about-us.create');
+        Route::screen('/{id_about_us}/edit', AboutUsEditScreen::class)->name('platform.about-us.edit');
+        Route::group([ 'prefix' => '/{id}'], function () {
+            Route::screen('about_achievement/{id_about_us}/edit', AboutAchievementsEditScreen::class)
+            ->name('platform.about_achievements.edit');
+            Route::screen('about_achievement/create', AboutAchievementsCreateScreen::class)
+            ->name('platform.about_achievements.create');
+        });
+    });
 
         // Contacts
 Route::screen('contacts/social/create', SocialsCreateScreen::class)
     ->name('platform.social.create');
+Route::screen('contacts/social/{id}/edit', SocialsEditScreen::class)
+    ->name('platform.social.edit');
 Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
     ->name('platform.contacts.edit');
 

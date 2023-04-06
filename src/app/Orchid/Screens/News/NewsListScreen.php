@@ -22,7 +22,7 @@ class NewsListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'news' => News::all()
+            'news' => News::filters()->paginate(10)
         ];
     }
  
@@ -61,7 +61,7 @@ class NewsListScreen extends Screen
                     ->render(function ($new) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$new->image_desc' />";
                     }),
-                TD::make('title', 'Title'),
+                TD::make('title', 'Title')->sort()->filter(TD::FILTER_TEXT),
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
                 }),

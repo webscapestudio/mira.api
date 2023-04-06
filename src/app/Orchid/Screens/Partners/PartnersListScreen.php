@@ -22,7 +22,7 @@ class PartnersListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'partners' => Partners::all()
+            'partners' => Partners::filters()->paginate(10)
         ];
     }
 
@@ -59,8 +59,8 @@ class PartnersListScreen extends Screen
                     ->render(function ($partner) {
                         return "<img  class='mw-100 d-block img-fluid rounded-1 w-100' src='$partner->logo' />";
                     }),
-                TD::make('title', 'Title'),
-                TD::make('description', 'Description'),
+                TD::make('title', 'Title')->sort()->filter(TD::FILTER_TEXT),
+                TD::make('description', 'Description')->sort(),
 
                 TD::make('created_at', 'Created')->width('160px')->render(function ($date) {
                     return $date->created_at->diffForHumans();
