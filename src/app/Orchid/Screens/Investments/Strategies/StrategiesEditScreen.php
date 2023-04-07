@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Investments\Strategies;
 use App\Models\Investment;
 use App\Models\InvestStrategies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
@@ -32,7 +33,11 @@ class StrategiesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Strategies Edit';
+        if (Route::currentRouteName() === 'platform.invest_strategies.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

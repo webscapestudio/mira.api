@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Partners;
 
 use App\Models\Partners;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
@@ -34,7 +35,11 @@ class PartnersEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Partner Edit';
+        if (Route::currentRouteName() === 'platform.partners.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

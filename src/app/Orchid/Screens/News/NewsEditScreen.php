@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\News;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
@@ -34,7 +35,11 @@ class NewsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'New Edit';
+        if (Route::currentRouteName() === 'platform.news.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

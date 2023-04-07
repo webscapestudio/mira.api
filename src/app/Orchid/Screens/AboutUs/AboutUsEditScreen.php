@@ -45,7 +45,11 @@ class AboutUsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'AboutUs';
+        if (Route::currentRouteName() === 'platform.about-us.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

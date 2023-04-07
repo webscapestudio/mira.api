@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Advantages;
 
 use App\Models\Advantages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
@@ -32,7 +33,11 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantage';
+        if (Route::currentRouteName() === 'platform.advantages.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

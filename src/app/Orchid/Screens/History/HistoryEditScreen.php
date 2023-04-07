@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\History;
 
 use App\Models\History;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
@@ -34,7 +35,11 @@ class HistoryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'History Edit';
+        if (Route::currentRouteName() === 'platform.history.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

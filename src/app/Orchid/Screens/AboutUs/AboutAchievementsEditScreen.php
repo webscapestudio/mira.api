@@ -32,7 +32,7 @@ class AboutAchievementsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'AboutAchievementsEditScreen';
+        return 'Edit';
     }
 
     /**

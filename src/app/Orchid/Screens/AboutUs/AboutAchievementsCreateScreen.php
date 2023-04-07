@@ -37,7 +37,7 @@ class AboutAchievementsCreateScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Achievements';
+        return 'Create';
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\User;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
@@ -34,7 +35,12 @@ class BannersEdit extends Screen
      */
     public function name(): ?string
     {
-        return 'Banner Edit';
+        if (Route::currentRouteName() === 'platform.banners.create') :
+                return 'Create';
+        else :
+                return 'Edit';
+        endif;
+       
     }
 
     /**

@@ -32,7 +32,7 @@ class SocialsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Social Edit';
+        return 'Edit';
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Investments\Advantages;
 use App\Models\InvestAdvantages;
 use App\Models\Investment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
@@ -32,7 +33,11 @@ class AdvantagesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages Edit';
+        if (Route::currentRouteName() === 'platform.invest_advantages.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

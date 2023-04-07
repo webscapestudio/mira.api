@@ -33,7 +33,7 @@ class AdvantagesListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Advantages';
+        return 'Investment Advantages';
     }
 
     /**

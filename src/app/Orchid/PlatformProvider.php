@@ -35,23 +35,10 @@ class PlatformProvider extends OrchidServiceProvider
             // //     ->route('platform.example')
             // //     ->title('Navigation')
             // //     ->badge(fn () => 6),
-            
+
             Menu::make('Pages')
                 ->icon('monitor')
                 ->route('platform.pages'),
-
-                Menu::make('Gallery')
-                ->icon('picture')
-                ->route('platform.gallery.list'),
-
-
-                Menu::make('Investitions')
-                ->icon('chart')
-                ->list([
-                    Menu::make('Main page')->route('platform.investments.edit', '1'),
-                    Menu::make('Advantages')->route('platform.invest_advantages.list'),
-                    Menu::make('Strategies')->route('platform.invest_strategies.list'),
-                ]),
 
             Menu::make('Blocks')
                 ->icon('code')
@@ -62,7 +49,7 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Achievements')
                         ->route('platform.achievements.list'),
                     Menu::make('About Us')
-                    ->route('platform.about-us.list'),
+                        ->route('platform.about-us.list'),
                     Menu::make('Advantages')
                         ->route('platform.advantages.list'),
                     Menu::make('History')
@@ -72,19 +59,33 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Partners')
                         ->route('platform.partners.list'),
                     Menu::make('Contacts')
-                    ->route('platform.contacts.edit', '1'),
+                        ->route('platform.contacts.edit', '1'),
 
                 ]),
-                Menu::make('News')
-                ->icon('speech')->route('platform.news.list'),
-                Menu::make('Vacancies')->icon('note')->route('platform.vacancies.list'),
 
-                Menu::make('Requests')
+            Menu::make('Investitions')
+                ->icon('chart')
+                ->list([
+                    Menu::make('Main page')->route('platform.investments.edit', '1'),
+                    Menu::make('Advantages')->route('platform.invest_advantages.list'),
+                    Menu::make('Strategies')->route('platform.invest_strategies.list'),
+                ]),
+
+
+            Menu::make('News')
+                ->icon('speech')->route('platform.news.list'),
+            Menu::make('Vacancies')->icon('note')->route('platform.vacancies.list'),
+
+            Menu::make('Gallery')
+                ->icon('picture')
+                ->route('platform.gallery.list'),
+
+            Menu::make('Requests')
                 ->icon('envelope')
                 ->list([
-                Menu::make('General request')->route('platform.general_request.list'),
-                Menu::make('Resume request')->route('platform.resume_request.list')
-                        ]),
+                    Menu::make('General request')->route('platform.general_request.list'),
+                    Menu::make('Resume request')->route('platform.resume_request.list')
+                ]),
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')
             //     ->route('platform.example.advanced'),

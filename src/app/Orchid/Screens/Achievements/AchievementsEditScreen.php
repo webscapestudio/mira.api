@@ -9,6 +9,7 @@ use Orchid\Screen\Fields\Input;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class AchievementsEditScreen extends Screen
 {
@@ -31,7 +32,11 @@ class AchievementsEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Achievements';
+        if (Route::currentRouteName() === 'platform.achievements.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**

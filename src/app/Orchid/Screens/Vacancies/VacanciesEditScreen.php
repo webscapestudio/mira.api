@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Vacancies;
 
 use App\Models\Vacancies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Picture;
@@ -34,7 +35,11 @@ class VacanciesEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Vacancy Edit';
+        if (Route::currentRouteName() === 'platform.vacancies.create') :
+            return 'Create';
+        else :
+            return 'Edit';
+        endif;
     }
 
     /**
