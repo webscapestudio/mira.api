@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\GeneralRequestsController;
+use App\Http\Controllers\Api\MainController;
 use App\Http\Controllers\Api\PagesController;
 use App\Http\Controllers\Api\ResumeRequestsController;
 use App\Orchid\Screens\Requests\ResumeRequestsListScreen;
@@ -25,6 +26,7 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 Route::apiResources([
     'general_request' => GeneralRequestsController::class,
     'resume_request' => ResumeRequestsController::class,
+    'main' => MainController::class,
 ]);
 // Route::get('pages',[
 //     GeneralRequestsController::class
