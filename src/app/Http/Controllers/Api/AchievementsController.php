@@ -12,7 +12,7 @@ class AchievementsController extends Controller
     {
         $achievements = AchievementsResource::collection(Achievements::all());
         return response()->json([
-            'banners' => $achievements,
+            'achievements' => $achievements,
         ]);
     }
 }

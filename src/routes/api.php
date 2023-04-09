@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\Pages\InvestitionsController;
 use App\Http\Controllers\Api\Pages\NewsController;
 use App\Http\Controllers\Api\Pages\OurProjectsController;
 use App\Http\Controllers\Api\Pages\WorkWithUsController;
+use App\Http\Controllers\Api\VacanciesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +53,8 @@ Route::apiResources([
     'investitions/advantages' => InvestAdvantagesController::class,
     'investitions/strategies' => InvestStrategiesController::class,
     'news' => ApiNewsController::class,
-    'vacancies' => ContactsController::class,
+    'vacancies' => VacanciesController::class,
+    'contacts' => ContactsController::class,
     'page/main' => MainController::class,
     'page/investitions' => InvestitionsController::class,
     'page/our-projects' => OurProjectsController::class,
