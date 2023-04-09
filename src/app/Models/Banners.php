@@ -12,7 +12,7 @@ class Banners extends Model
 {
     use HasFactory, AsSource, Attachable,Filterable;
     protected $guarded = [];
-    protected $fillable = ['title_first', 'title_second', 'image_desc', 'image_mob'];
+    protected $fillable = ['title_first', 'title_second', 'image_desc', 'image_mob','project'];
 
     protected $allowedSorts = [
         'title_first',

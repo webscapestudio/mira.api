@@ -24,7 +24,7 @@ class BannersResource extends JsonResource
                 "desktop"=> $this->image_desc,
                 "mobile"=> $this->image_mob
         ],
-            
+        "project"=>$this->project, 
         ];
     }
 }

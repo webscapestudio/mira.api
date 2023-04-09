@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NewsResource extends JsonResource
+class NewsSingleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,16 +14,12 @@ class NewsResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->paginate(10)->lastPage() == $this->paginate(10)->currentPage()):
-            $is_last = true;
-        else:
-            $is_last = false;
-        endif;
         return [
+            "slug"=> $this->slug,
             "title"=> $this->title,
-            "contents"=> $this->contents,
+            "content"=> $this->content,
             "picture"=> $this->image_desc,
-            "is_last"=> $is_last 
+            "date"=> $this->created_at,
         ];
     }
-}
+} 

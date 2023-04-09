@@ -27,6 +27,10 @@ class PagesSeeder extends Seeder
             ], [
                 'title' => 'Work with us',
                 'slug' => 'Work-with-us'
+            ],
+            [
+                'title' => 'News',
+                'slug' => 'news'
             ]
         ]);
         DB::table('investments')->insert([

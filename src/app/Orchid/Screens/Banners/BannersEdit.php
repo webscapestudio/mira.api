@@ -73,6 +73,10 @@ class BannersEdit extends Screen
                 Input::make('banner.title_second')->title('Title second')->type('text')->required(),
                 Picture::make('banner.image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
                 Picture::make('banner.image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
+                Input::make('banner.project')
+                ->title('Project')
+                ->type('text')
+                ->required(),
             ])
         ];
     }

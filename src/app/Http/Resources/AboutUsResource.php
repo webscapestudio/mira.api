@@ -17,6 +17,13 @@ class AboutUsResource extends JsonResource
     {
         $about_achievements = AboutAchievements::where('about_achievementable_id',  $this->id)->filters()->get();
 
+        if(isset($about_achievements[0])):
+           $about_achievements = AboutAchievements::where('about_achievementable_id',  $this->id)->filters()->get();
+        else:
+           $about_achievements = null;
+        endif;
+        
+
         return [
             "title" => $this->title,
             "description" => $this->description,
