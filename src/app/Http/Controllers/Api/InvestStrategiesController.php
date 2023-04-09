@@ -11,8 +11,6 @@ class InvestStrategiesController extends Controller
     public function index()
     {
         $invest_strategies =InvestStrategiesResource::collection(InvestStrategies::all());
-        return response()->json([
-            'invest_strategies' => $invest_strategies,
-        ]);
+        return response()->json(...$invest_strategies);
     }
 }

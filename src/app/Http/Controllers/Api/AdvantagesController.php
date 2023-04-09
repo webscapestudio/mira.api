@@ -11,8 +11,6 @@ class AdvantagesController extends Controller
     public function index()
     {
         $advantages = AdvantagesResource::collection(Advantages::all());
-        return response()->json([
-            'advantages' => $advantages,
-        ]);
+        return response()->json($advantages);
     }
 }

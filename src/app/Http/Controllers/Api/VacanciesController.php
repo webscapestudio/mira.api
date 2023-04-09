@@ -12,8 +12,6 @@ class VacanciesController extends Controller
     public function index()
     {
         $vacancies = VacanciesResource::collection(Vacancies::all());
-        return response()->json([
-            'vacancies' => $vacancies,
-        ]);
+        return response()->json($vacancies);
     }
 }

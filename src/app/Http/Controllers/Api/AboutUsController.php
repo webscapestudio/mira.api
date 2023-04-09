@@ -10,8 +10,6 @@ class AboutUsController extends Controller
     public function index()
     {
         $about_us =  AboutUsResource::collection(AboutUs::all());
-        return response()->json([
-            'about_us' => $about_us,
-        ]);
+        return response()->json($about_us);
     }
 }

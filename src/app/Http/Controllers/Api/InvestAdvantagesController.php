@@ -11,8 +11,6 @@ class InvestAdvantagesController extends Controller
     public function index()
     {
         $invest_advantages =InvestAdvantagesResource::collection(InvestAdvantages::all());
-        return response()->json([
-            'invest_advantages' => $invest_advantages,
-        ]);
+        return response()->json($invest_advantages);
     }
 }

@@ -39,13 +39,17 @@ class ResumeRequestsController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'comment' => 'required',
+            'comment' => 'nullable',
             'attachment' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
         $res_request = ResumeRequest::create($input);
+        // if (isset($input['attachment'])) :
+        //     $res_request->attachment = $input['attachment'];
+        //     $input['attachment'] = Storage::disk('public')->put('/attachments',  $input['attachment']);
+        // endif;
         return response()->json([
             "success" => true,
             "message" => "Created successfully.",

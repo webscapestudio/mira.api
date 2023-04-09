@@ -11,8 +11,6 @@ class BannersController extends Controller
     public function index()
     {
         $banners = BannersResource::collection(Banners::all());
-        return response()->json([
-            'banners' => $banners,
-        ]);
+        return response()->json($banners);
     }
 }

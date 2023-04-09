@@ -12,15 +12,11 @@ class NewsController extends Controller
     public function index()
     {
         $news = NewsResource::collection(News::paginate(10));
-        return response()->json([
-            'news' => $news,
-        ]);
+        return response()->json($news);
     }
     public function show($slug)
     {
         $news = NewsSingleResource::collection(News::where('slug',$slug)->get());
-        return response()->json([
-            'news' => $news,
-        ]);
+        return response()->json(...$news);
     }
 }

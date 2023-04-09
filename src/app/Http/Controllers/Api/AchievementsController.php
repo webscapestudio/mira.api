@@ -11,8 +11,6 @@ class AchievementsController extends Controller
     public function index()
     {
         $achievements = AchievementsResource::collection(Achievements::all());
-        return response()->json([
-            'achievements' => $achievements,
-        ]);
+        return response()->json($achievements);
     }
 }

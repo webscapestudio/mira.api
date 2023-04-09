@@ -11,8 +11,6 @@ class PartnersController extends Controller
     public function index()
     {
         $partners = PartnersResource::collection(Partners::all());
-        return response()->json([
-            'partners' => $partners,
-        ]);
+        return response()->json($partners);
     }
 }

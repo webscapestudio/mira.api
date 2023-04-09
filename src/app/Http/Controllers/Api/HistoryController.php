@@ -11,8 +11,6 @@ class HistoryController extends Controller
     public function index()
     {
         $history = HistoryResource::collection(History::all());
-        return response()->json([
-            'history' => $history,
-        ]);
+        return response()->json($history);
     }
 }

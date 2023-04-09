@@ -11,8 +11,6 @@ class InvestingController extends Controller
     public function index()
     {
         $investing = InvestmentResource::collection(Investment::get());
-        return response()->json([
-            'investing' => $investing,
-        ]);
+        return response()->json(...$investing);
     }
 }
