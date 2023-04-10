@@ -80,12 +80,12 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('picture')
                 ->route('platform.gallery.list'),
 
-            Menu::make('Requests')
-                ->icon('envelope')
-                ->list([
-                    Menu::make('General request')->route('platform.general_request.list'),
-                    Menu::make('Resume request')->route('platform.resume_request.list')
-                ]),
+            // Menu::make('Requests')
+            //     ->icon('envelope')
+            //     ->list([
+            //         Menu::make('General request')->route('platform.general_request.list'),
+            //         Menu::make('Resume request')->route('platform.resume_request.list')
+            //     ]),
             // Menu::make('Advanced Elements')
             //     ->icon('briefcase')
             //     ->route('platform.example.advanced'),
