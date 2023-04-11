@@ -77,7 +77,7 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Vacancies')->icon('note')->route('platform.vacancies.list'),
 
             Menu::make('Gallery')
-                ->icon('picture')
+                ->icon('picture') 
                 ->route('platform.gallery.list'),
 
             // Menu::make('Requests')
