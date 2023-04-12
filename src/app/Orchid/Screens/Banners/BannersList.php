@@ -21,7 +21,7 @@ class BannersList extends Screen
      */ 
     public function query(): iterable
     {
-        return ['banners' => Banners::filters()->paginate(10)];
+        return ['banners' => Banners::orderBy('sortdd', 'ASC')->filters()->paginate(10)];
     }
 
     /**
@@ -29,7 +29,7 @@ class BannersList extends Screen
      *
      * @return string|null
      */
-    public function name(): ?string
+    public function name(): ?string 
     {
         return 'Banners';
     }
@@ -81,6 +81,16 @@ class BannersList extends Screen
                                 ->method('remove', [
                                     'id' => $banner->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $banner->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $banner->id,
+                                ]),
                         ])),
             ])
         ];
@@ -89,5 +99,39 @@ class BannersList extends Screen
     {
         Banners::findOrFail($request->get('id'))->delete();
         Toast::info(__('Successfully removed'));
+    }
+
+    public function up_position($id): void
+    {
+        $banner_all = Banners::orderBy('sortdd', 'ASC')->get();
+        $banner = Banners::find($id);
+        $prev_banner = Banners::where('sortdd', '<', $banner->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($banner_all->first() == $banner) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_banner->increment('sortdd');
+            $banner->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $banner_all = Banners::orderBy('sortdd', 'ASC')->get();
+        $banner = Banners::find($id);
+        $next_banner = Banners::where('sortdd', '>', $banner->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($banner_all->last() == $banner) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_banner->decrement('sortdd');
+            $banner->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }

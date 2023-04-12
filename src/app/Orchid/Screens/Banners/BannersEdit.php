@@ -74,7 +74,7 @@ class BannersEdit extends Screen
                 Picture::make('banner.image_desc')->title('Image (desktop)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
                 Picture::make('banner.image_mob')->title('Image (mobile)')->required()->acceptedFiles('image/*,application/pdf,.psd'),
                 Input::make('banner.project')
-                ->title('Project')
+                ->title('Project') 
                 ->type('text')
                 ->required(),
             ])
@@ -84,6 +84,11 @@ class BannersEdit extends Screen
     public function createOrUpdate(Banners $banner, Request $request)
     {
         $banner->fill($request->get('banner'))->save();
+        if($banner->sortdd == null):
+            $banner->update([
+                'sortdd'=>$banner->id
+            ]);
+            endif;
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.banners.list');
     }

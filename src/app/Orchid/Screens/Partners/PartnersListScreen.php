@@ -22,7 +22,7 @@ class PartnersListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'partners' => Partners::filters()->paginate(10)
+            'partners' => Partners::orderBy('sortdd', 'ASC')->filters()->paginate(10)
         ];
     }
 
@@ -81,6 +81,16 @@ class PartnersListScreen extends Screen
                                 ->method('remove', [
                                     'id' => $partner->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $partner->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $partner->id,
+                                ]),
                         ])),
             ])
         ];
@@ -89,5 +99,40 @@ class PartnersListScreen extends Screen
     {
         Partners::findOrFail($request->get('id'))->delete();
         Toast::info(__('Successfully removed'));
+    }
+
+
+    public function up_position($id): void
+    {
+        $partner_all = Partners::orderBy('sortdd', 'ASC')->get();
+        $partner = Partners::find($id);
+        $prev_partner = Partners::where('sortdd', '<', $partner->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($partner_all->first() == $partner) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_partner->increment('sortdd');
+            $partner->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $partner_all = Partners::orderBy('sortdd', 'ASC')->get();
+        $partner = Partners::find($id);
+        $next_partner = Partners::where('sortdd', '>', $partner->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($partner_all->last() == $partner) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_partner->decrement('sortdd');
+            $partner->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }

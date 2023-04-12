@@ -15,7 +15,9 @@ class Achievements extends Model
     protected $fillable = [
         'number',
         'addition',
-        'description'
+        'description',
+        'sortdd'
+        
     ];
     protected $allowedSorts = ['number','addition','description'];
     protected $allowedFilters = ['number','description'];

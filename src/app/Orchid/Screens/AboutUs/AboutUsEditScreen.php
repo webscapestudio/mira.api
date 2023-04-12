@@ -137,7 +137,13 @@ class AboutUsEditScreen extends Screen
     public function createOrUpdate(AboutUs $about_us, Request $request)
     {
         $about_us->fill($request->get('about_us'))->save();
+        if($about_us->sortdd == null):
+            $about_us->update([
+                'sortdd'=>$about_us->id
+            ]);
+            endif;
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.about-us.list');
     }
+    
 }

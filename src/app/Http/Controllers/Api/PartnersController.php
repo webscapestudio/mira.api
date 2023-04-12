@@ -10,7 +10,7 @@ class PartnersController extends Controller
 {
     public function index()
     {
-        $partners = PartnersResource::collection(Partners::all());
+        $partners = PartnersResource::collection(Partners::orderBy('sortdd', 'ASC')->get());
         return response()->json($partners);
     }
 }

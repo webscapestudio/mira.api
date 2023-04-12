@@ -74,7 +74,11 @@ class VacanciesEditScreen extends Screen
     public function createOrUpdate(Vacancies $vacancie, Request $request)
     {
         $vacancie->fill($request->get('vacancie'))->save();
-
+        if($vacancie->sortdd == null):
+            $vacancie->update([
+                'sortdd'=>$vacancie->id
+            ]);
+            endif;
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.vacancies.list');
     }

@@ -10,7 +10,7 @@ class AchievementsController extends Controller
 {
     public function index()
     {
-        $achievements = AchievementsResource::collection(Achievements::all());
+        $achievements = AchievementsResource::collection(Achievements::orderBy('sortdd', 'ASC')->get());
         return response()->json($achievements);
     }
 }

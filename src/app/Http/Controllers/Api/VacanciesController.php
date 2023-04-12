@@ -11,7 +11,7 @@ class VacanciesController extends Controller
 {
     public function index()
     {
-        $vacancies = VacanciesResource::collection(Vacancies::all());
+        $vacancies = VacanciesResource::collection(Vacancies::orderBy('sortdd', 'ASC')->get());
         return response()->json($vacancies);
     }
 }

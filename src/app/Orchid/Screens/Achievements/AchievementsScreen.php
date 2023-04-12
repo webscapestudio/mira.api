@@ -11,7 +11,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
-use Orchid\Support\Facades\Toast;
+use Orchid\Support\Facades\Toast; 
 
 class AchievementsScreen extends Screen
 {
@@ -23,7 +23,7 @@ class AchievementsScreen extends Screen
     public function query(): iterable
     {
         return [
-            'achievements' => Achievements::filters()->paginate(10)
+            'achievements' => Achievements::orderBy('sortdd', 'ASC')->filters()->paginate(10)
         ];
     }
 
@@ -78,6 +78,16 @@ class AchievementsScreen extends Screen
                                 ->method('remove', [
                                     'id' => $achievement->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $achievement->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $achievement->id,
+                                ]),
                         ])),
             ])
         ];
@@ -87,5 +97,39 @@ class AchievementsScreen extends Screen
     {
         Achievements::findOrFail($request->get('id'))->delete();
         Toast::info(__('Successfully removed'));
+    }
+
+    public function up_position($id): void
+    {
+        $achievement_all = Achievements::orderBy('sortdd', 'ASC')->get();
+        $achievement = Achievements::find($id);
+        $prev_achievement = Achievements::where('sortdd', '<', $achievement->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($achievement_all->first() == $achievement) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_achievement->increment('sortdd');
+            $achievement->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $achievement_all = Achievements::orderBy('sortdd', 'ASC')->get();
+        $achievement = Achievements::find($id);
+        $next_achievement = Achievements::where('sortdd', '>', $achievement->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($achievement_all->last() == $achievement) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_achievement->decrement('sortdd');
+            $achievement->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }

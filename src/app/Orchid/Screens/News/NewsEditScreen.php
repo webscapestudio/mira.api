@@ -74,7 +74,11 @@ class NewsEditScreen extends Screen
     public function createOrUpdate(News $new, Request $request)
     {
         $new->fill($request->get('new'))->save();
-
+        if($new->sortdd == null):
+        $new->update([
+            'sortdd'=>$new->id
+        ]);
+        endif;
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.news.list');
     }

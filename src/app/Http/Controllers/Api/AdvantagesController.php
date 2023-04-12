@@ -10,7 +10,7 @@ class AdvantagesController extends Controller
 {
     public function index()
     {
-        $advantages = AdvantagesResource::collection(Advantages::all());
+        $advantages = AdvantagesResource::collection(Advantages::orderBy('sortdd', 'ASC')->get());
         return response()->json($advantages);
     }
 }

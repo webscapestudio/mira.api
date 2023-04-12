@@ -22,7 +22,7 @@ class VacanciesListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'vacancies' => Vacancies::filters()->paginate(10)
+            'vacancies' => Vacancies::orderBy('sortdd', 'ASC')->filters()->paginate(10)
         ];
     }
 
@@ -82,6 +82,16 @@ class VacanciesListScreen extends Screen
                                 ->method('remove', [
                                     'id' => $vacancie->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $vacancie->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $vacancie->id,
+                                ]),
                         ])),
             ])
         ];
@@ -90,5 +100,38 @@ class VacanciesListScreen extends Screen
     {
         Vacancies::findOrFail($request->get('id'))->delete();
         Toast::info(__('Successfully removed'));
+    }
+    public function up_position($id): void
+    {
+        $vacancie_all = Vacancies::orderBy('sortdd', 'ASC')->get();
+        $vacancie = Vacancies::find($id);
+        $prev_vacancie = Vacancies::where('sortdd', '<', $vacancie->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($vacancie_all->first() == $vacancie) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_vacancie->increment('sortdd');
+            $vacancie->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $vacancie_all = Vacancies::orderBy('sortdd', 'ASC')->get();
+        $vacancie = Vacancies::find($id);
+        $next_vacancie = Vacancies::where('sortdd', '>', $vacancie->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($vacancie_all->last() == $vacancie) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_vacancie->decrement('sortdd');
+            $vacancie->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }

@@ -9,7 +9,7 @@ class AboutUsController extends Controller
 {
     public function index()
     {
-        $about_us =  AboutUsResource::collection(AboutUs::all());
+        $about_us =  AboutUsResource::collection(AboutUs::orderBy('sortdd', 'ASC')->get());
         return response()->json($about_us);
     }
 }

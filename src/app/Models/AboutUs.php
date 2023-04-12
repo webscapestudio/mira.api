@@ -11,7 +11,7 @@ class AboutUs extends Model
 {
     use HasFactory, AsSource, Filterable;
     
-    protected $fillable = ['title', 'description', 'text_size', 'image_desc', 'image_mob'];
+    protected $fillable = ['title', 'description', 'text_size', 'image_desc', 'image_mob','sortdd'];
 
     protected $allowedSorts = [
         'title',

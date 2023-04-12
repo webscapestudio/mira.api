@@ -13,7 +13,7 @@ use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
 class AdvantagesEditScreen extends Screen
-{
+{ 
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -74,6 +74,11 @@ class AdvantagesEditScreen extends Screen
     public function createOrUpdate(Advantages $advantage, Request $request)
     {
         $advantage->fill($request->get('advantage'))->save();
+        if($advantage->sortdd == null):
+            $advantage->update([
+                'sortdd'=>$advantage->id
+            ]);
+            endif;
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.advantages.list');
     }

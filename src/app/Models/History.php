@@ -11,7 +11,7 @@ class History extends Model
 {
     use HasFactory, AsSource,Filterable;
     protected $guarded = [];
-    protected $fillable = ['year','title','image_desc','image_mob','description'];
+    protected $fillable = ['year','title','image_desc','image_mob','description','sortdd'];
 
     protected $allowedSorts = [
         'year',

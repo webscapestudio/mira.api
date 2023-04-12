@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = NewsResource::collection(News::paginate(10));
+        $news = NewsResource::collection(News::orderBy('sortdd', 'ASC')->paginate(10));
         return response()->json($news);
     }
     public function show($slug)

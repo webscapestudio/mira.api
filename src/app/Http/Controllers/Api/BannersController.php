@@ -10,7 +10,7 @@ class BannersController extends Controller
 {
     public function index()
     {
-        $banners = BannersResource::collection(Banners::all());
+        $banners = BannersResource::collection(Banners::orderBy('sortdd', 'ASC')->get());
         return response()->json($banners);
     }
 }

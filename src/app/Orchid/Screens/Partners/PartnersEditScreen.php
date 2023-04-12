@@ -81,6 +81,11 @@ class PartnersEditScreen extends Screen
         $partner->attachment()->syncWithoutDetaching(
             $request->input('partner.attachment', [])
         );
+        if($partner->sortdd == null):
+            $partner->update([
+                'sortdd'=>$partner->id
+            ]);
+            endif;
     
         Toast::info(__('Successfully saved'));
         return redirect()->route('platform.partners.list');

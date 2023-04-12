@@ -12,7 +12,7 @@ class News extends Model
 {
     use HasFactory, AsSource, Sluggable,Filterable;
     protected $guarded = [];
-    protected $fillable = ['slug','content','title','image_desc','is_last'];
+    protected $fillable = ['slug','content','title','image_desc','is_last','sortdd'];
 
     protected $allowedSorts = [
         'title',
@@ -23,4 +23,5 @@ class News extends Model
     {
         return ['slug' => ['source' => 'title']];
     }
+
 }

@@ -13,7 +13,7 @@ class Partners extends Model
 {
     use HasFactory, AsSource, Attachable,Filterable;
     protected $table = 'partners';
-    protected $fillable = ['title', 'description', 'logo'];
+    protected $fillable = ['title', 'description', 'logo','sortdd'];
 
     protected $allowedSorts = [
         'title',

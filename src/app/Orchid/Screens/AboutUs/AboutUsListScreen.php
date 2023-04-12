@@ -22,7 +22,7 @@ class AboutUsListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'about_us' => AboutUs::filters()->paginate(10)
+            'about_us' => AboutUs::orderBy('sortdd', 'ASC')->filters()->paginate(10)
         ];
     }
 
@@ -85,6 +85,16 @@ class AboutUsListScreen extends Screen
                                 ->method('delete', [
                                     'id' => $about_us->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $about_us->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $about_us->id,
+                                ]),
                         ])),
                         ])
         ];
@@ -94,5 +104,39 @@ class AboutUsListScreen extends Screen
     {
         AboutUs::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
+    }
+
+    public function up_position($id): void
+    {
+        $about_us_all = AboutUs::orderBy('sortdd', 'ASC')->get();
+        $about_us = AboutUs::find($id);
+        $prev_about_us = AboutUs::where('sortdd', '<', $about_us->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($about_us_all->first() == $about_us) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_about_us->increment('sortdd');
+            $about_us->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $about_us_all = AboutUs::orderBy('sortdd', 'ASC')->get();
+        $about_us = AboutUs::find($id);
+        $next_about_us = AboutUs::where('sortdd', '>', $about_us->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($about_us_all->last() == $about_us) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_about_us->decrement('sortdd');
+            $about_us->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }

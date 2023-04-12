@@ -12,7 +12,7 @@ class Vacancies extends Model
     use HasFactory, AsSource,Filterable;
  
     protected $guarded = [];
-    protected $fillable = ['title','content','image_desc'];
+    protected $fillable = ['title','content','image_desc' ,'sortdd'];
 
     protected $allowedSorts = [
         'title',

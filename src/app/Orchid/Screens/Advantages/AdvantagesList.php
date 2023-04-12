@@ -17,12 +17,12 @@ class AdvantagesList extends Screen
     /**
      * Fetch data to be displayed on the screen.
      *
-     * @return array
+     * @return array 
      */
     public function query(): iterable
     {
         return [
-            "advantages" => Advantages::filters()->paginate(10)
+            "advantages" => Advantages::orderBy('sortdd', 'ASC')->filters()->paginate(10)
         ];
     }
 
@@ -84,6 +84,16 @@ class AdvantagesList extends Screen
                                 ->method('delete', [
                                     'id' => $advantage->id,
                                 ]),
+                                Button::make(__('Up'))
+                                ->icon('arrow-up')
+                                ->method('up_position', [
+                                    'id' => $advantage->id,
+                                ]),
+                            Button::make(__('Down'))
+                                ->icon('arrow-down')
+                                ->method('down_position', [
+                                    'id' => $advantage->id,
+                                ]),
                         ])),
             ])
         ];
@@ -93,5 +103,39 @@ class AdvantagesList extends Screen
     {
         Advantages::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
+    }
+
+    public function up_position($id): void
+    {
+        $advantage_all = Advantages::orderBy('sortdd', 'ASC')->get();
+        $advantage = Advantages::find($id);
+        $prev_advantage = Advantages::where('sortdd', '<', $advantage->sortdd)
+            ->latest('sortdd')
+            ->first();
+
+        if ($advantage_all->first() == $advantage) :
+            Toast::error(__('Position is first'));
+        else :
+            $prev_advantage->increment('sortdd');
+            $advantage->decrement('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
+
+    }
+    public function down_position($id): void
+    {
+        $advantage_all = Advantages::orderBy('sortdd', 'ASC')->get();
+        $advantage = Advantages::find($id);
+        $next_advantage = Advantages::where('sortdd', '>', $advantage->sortdd)
+            ->oldest('sortdd')
+            ->first();
+
+        if ($advantage_all->last() == $advantage) :
+            Toast::error(__('Position is latest'));
+        else :
+            $next_advantage->decrement('sortdd');
+            $advantage->increment('sortdd');
+            Toast::info(__('Successfully'));
+        endif;
     }
 }
