@@ -20,6 +20,14 @@ use App\Http\Controllers\Api\Pages\InvestitionsController;
 use App\Http\Controllers\Api\Pages\NewsController;
 use App\Http\Controllers\Api\Pages\OurProjectsController;
 use App\Http\Controllers\Api\Pages\WorkWithUsController;
+use App\Http\Controllers\Api\Projects\ProjectAdvantagesController;
+use App\Http\Controllers\Api\Projects\ProjectLocationController;
+use App\Http\Controllers\Api\Projects\ProjectMainInformationController;
+use App\Http\Controllers\Api\Projects\ProjectPicturesController;
+use App\Http\Controllers\Api\Projects\ProjectProgressPointsController;
+use App\Http\Controllers\Api\Projects\ProjectsController;
+use App\Http\Controllers\Api\Projects\ProjectUnitsController;
+use App\Http\Controllers\Api\Projects\ProjectUspController;
 use App\Http\Controllers\Api\VacanciesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,8 +68,14 @@ Route::apiResources([
     'page/our-projects' => OurProjectsController::class,
     'page/work-with-us' => WorkWithUsController::class,
     'page/news' => NewsController::class,
-    // 'page/vacancies' => ContactsController::class,
-    // 'news/{news_slug}' => ContactsController::class,
+    'projects' => ProjectsController::class,
+    'projects/{project_slug}/pictures' => ProjectPicturesController::class,
+    'projects/{project_slug}/main_information' => ProjectMainInformationController::class,
+    'projects/{project_slug}/advantages' => ProjectAdvantagesController::class,
+    'projects/{project_slug}/progress_points' => ProjectProgressPointsController::class,
+    'projects/{project_slug}/location' => ProjectLocationController::class,
+    'projects/{project_slug}/usp' => ProjectUspController::class,
+    'projects/{unit_id}/units' => ProjectUnitsController::class,
+    'projects/{unit_id}/units/{project_slug}' => ProjectUnitsController::class,
 
 ]);
-

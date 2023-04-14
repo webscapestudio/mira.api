@@ -116,8 +116,10 @@ class AdvantagesList extends Screen
         if ($advantage_all->first() == $advantage) :
             Toast::error(__('Position is first'));
         else :
-            $prev_advantage->increment('sortdd');
-            $advantage->decrement('sortdd');
+            $difference = $advantage->sortdd - $prev_advantage->sortdd;
+
+            $prev_advantage->update(['sortdd'=>$prev_advantage->sortdd + $difference]);
+            $advantage->update(['sortdd'=>$advantage->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -133,8 +135,10 @@ class AdvantagesList extends Screen
         if ($advantage_all->last() == $advantage) :
             Toast::error(__('Position is latest'));
         else :
-            $next_advantage->decrement('sortdd');
-            $advantage->increment('sortdd');
+            $difference =$next_advantage->sortdd - $advantage->sortdd;
+
+            $next_advantage->update(['sortdd'=>$next_advantage->sortdd - $difference]);
+            $advantage->update(['sortdd'=>$advantage->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

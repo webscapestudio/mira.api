@@ -102,6 +102,9 @@ class AboutUsListScreen extends Screen
 
     public function delete(Request $request): void
     {
+        foreach(AboutUs::findOrFail($request->get('id'))->about_achievement->all() as $about_achievement):
+            $about_achievement->delete();
+        endforeach;
         AboutUs::findOrFail($request->get('id'))->delete();
         Toast::info('Successfully deleted');
     }
@@ -117,8 +120,10 @@ class AboutUsListScreen extends Screen
         if ($about_us_all->first() == $about_us) :
             Toast::error(__('Position is first'));
         else :
-            $prev_about_us->increment('sortdd');
-            $about_us->decrement('sortdd');
+            $difference = $about_us->sortdd - $prev_about_us->sortdd;
+
+            $prev_about_us->update(['sortdd'=>$prev_about_us->sortdd + $difference]);
+            $about_us->update(['sortdd'=>$about_us->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -134,8 +139,10 @@ class AboutUsListScreen extends Screen
         if ($about_us_all->last() == $about_us) :
             Toast::error(__('Position is latest'));
         else :
-            $next_about_us->decrement('sortdd');
-            $about_us->increment('sortdd');
+            $difference =$next_about_us->sortdd - $about_us->sortdd;
+
+            $next_about_us->update(['sortdd'=>$next_about_us->sortdd - $difference]);
+            $about_us->update(['sortdd'=>$about_us->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

@@ -112,8 +112,10 @@ class BannersList extends Screen
         if ($banner_all->first() == $banner) :
             Toast::error(__('Position is first'));
         else :
-            $prev_banner->increment('sortdd');
-            $banner->decrement('sortdd');
+            $difference = $banner->sortdd - $prev_banner->sortdd;
+
+            $prev_banner->update(['sortdd'=>$prev_banner->sortdd + $difference]);
+            $banner->update(['sortdd'=>$banner->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -129,8 +131,10 @@ class BannersList extends Screen
         if ($banner_all->last() == $banner) :
             Toast::error(__('Position is latest'));
         else :
-            $next_banner->decrement('sortdd');
-            $banner->increment('sortdd');
+            $difference =$next_banner->sortdd - $banner->sortdd;
+
+            $next_banner->update(['sortdd'=>$next_banner->sortdd - $difference]);
+            $banner->update(['sortdd'=>$banner->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

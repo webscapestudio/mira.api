@@ -110,8 +110,10 @@ class AchievementsScreen extends Screen
         if ($achievement_all->first() == $achievement) :
             Toast::error(__('Position is first'));
         else :
-            $prev_achievement->increment('sortdd');
-            $achievement->decrement('sortdd');
+            $difference = $achievement->sortdd - $prev_achievement->sortdd;
+
+            $prev_achievement->update(['sortdd'=>$prev_achievement->sortdd + $difference]);
+            $achievement->update(['sortdd'=>$achievement->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -127,8 +129,10 @@ class AchievementsScreen extends Screen
         if ($achievement_all->last() == $achievement) :
             Toast::error(__('Position is latest'));
         else :
-            $next_achievement->decrement('sortdd');
-            $achievement->increment('sortdd');
+            $difference =$next_achievement->sortdd - $achievement->sortdd;
+
+            $next_achievement->update(['sortdd'=>$next_achievement->sortdd - $difference]);
+            $achievement->update(['sortdd'=>$achievement->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

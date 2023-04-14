@@ -114,8 +114,10 @@ class HistoryListScreen extends Screen
         if ($history_all->first() == $history) :
             Toast::error(__('Position is first'));
         else :
-            $prev_history->increment('sortdd');
-            $history->decrement('sortdd');
+            $difference = $history->sortdd - $prev_history->sortdd;
+
+            $prev_history->update(['sortdd'=>$prev_history->sortdd + $difference]);
+            $history->update(['sortdd'=>$history->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -131,8 +133,10 @@ class HistoryListScreen extends Screen
         if ($history_all->last() == $history) :
             Toast::error(__('Position is latest'));
         else :
-            $next_history->decrement('sortdd');
-            $history->increment('sortdd');
+            $difference =$next_history->sortdd - $history->sortdd;
+
+            $next_history->update(['sortdd'=>$next_history->sortdd - $difference]);
+            $history->update(['sortdd'=>$history->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

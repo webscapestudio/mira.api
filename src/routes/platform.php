@@ -32,6 +32,14 @@ use App\Orchid\Screens\PagesScreen;
 use App\Orchid\Screens\Partners\PartnersEditScreen;
 use App\Orchid\Screens\Partners\PartnersListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Projects\Advantages\AdvantagesCreateScreen as ProjectsAdvantagesAdvantagesCreateScreen;
+use App\Orchid\Screens\Projects\Advantages\AdvantagesEditScreen as ProjectsAdvantagesAdvantagesEditScreen;
+use App\Orchid\Screens\Projects\ProgressPoints\PointCreateScreen;
+use App\Orchid\Screens\Projects\ProgressPoints\PointEditScreen;
+use App\Orchid\Screens\Projects\ProjectsEditScreen;
+use App\Orchid\Screens\Projects\ProjectsListScreen;
+use App\Orchid\Screens\Projects\Units\UnitsCreateScreen;
+use App\Orchid\Screens\Projects\Units\UnitsEditScreen;
 use App\Orchid\Screens\Requests\GeneralRequestsListScreen;
 use App\Orchid\Screens\Requests\ResumeRequestsListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
@@ -138,132 +146,218 @@ Route::group(['namespace' => 'AboutUs', 'prefix' => 'about-us'], function () {
 
 //Advantages
 Route::screen('advantages', AdvantagesList::class)
-->name('platform.advantages.list')
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('Advantages'));
+    ->name('platform.advantages.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Advantages')
+    );
 Route::screen('advantages/create', AdvantagesEditScreen::class)
     ->name('platform.advantages.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.advantages.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.advantages.list')->push('Create')
+    );
 Route::screen('advantages/{id}/edit', AdvantagesEditScreen::class)
     ->name('platform.advantages.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.advantages.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.advantages.list')->push('Edit')
+    );
 
 
 // History
 Route::screen('history', HistoryListScreen::class)
-->name('platform.history.list')
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('History'));
+    ->name('platform.history.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('History')
+    );
 Route::screen('history/create', HistoryEditScreen::class)
     ->name('platform.history.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.history.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.history.list')->push('Create')
+    );
 Route::screen('history/{id}/edit', HistoryEditScreen::class)
     ->name('platform.history.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.history.list')->push('Edit'));;
+        fn (Trail $trail) => $trail->parent('platform.history.list')->push('Edit')
+    );;
 
 
 // Manifesto
 Route::screen('manifestos/{id}/edit', ManifestoEditScreen::class)
     ->name('platform.manifestos.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.index')->push('Manifesto'));
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Manifesto')
+    );
 
 
 // Partners
 Route::screen('partners', PartnersListScreen::class)
-->name('platform.partners.list')
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('Partners'));
+    ->name('platform.partners.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Partners')
+    );
 Route::screen('partners/create', PartnersEditScreen::class)
-    ->name('platform.partners.create')    
+    ->name('platform.partners.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.partners.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.partners.list')->push('Create')
+    );
 Route::screen('partners/{id}/edit', PartnersEditScreen::class)
-    ->name('platform.partners.edit') 
+    ->name('platform.partners.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.partners.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.partners.list')->push('Edit')
+    );
 
 // Contacts
 Route::screen('contacts/{id}/edit', ContactsEditScreen::class)
     ->name('platform.contacts.edit')
-        ->breadcrumbs(
-            fn (Trail $trail) => $trail->parent('platform.index')->push('Сontacts'));
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Сontacts')
+    );
 Route::screen('contacts/social/create', SocialsCreateScreen::class)
     ->name('platform.social.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.contacts.edit')->push('Social Media Edit'));
+        fn (Trail $trail) => $trail->parent('platform.contacts.edit')->push('Social Media Edit')
+    );
 Route::screen('contacts/social/{id}/edit', SocialsEditScreen::class)
     ->name('platform.social.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.contacts.edit')->push('Social Media Create'));
+        fn (Trail $trail) => $trail->parent('platform.contacts.edit')->push('Social Media Create')
+    );
 
 
 // Investments
 Route::screen('investments/{id}/edit', InvestmentEditScreen::class)
-    ->name('platform.investments.edit')        
+    ->name('platform.investments.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.index')->push('Investment'));
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Investment')
+    );
 
 Route::screen('investments/invest_advantages', AdvantagesListScreen::class)
-    ->name('platform.invest_advantages.list')    
+    ->name('platform.invest_advantages.list')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.index')->push('Investment Advantages'));
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Investment Advantages')
+    );
 Route::screen('investments/invest_advantages/create', AdvantagesAdvantagesEditScreen::class)
-    ->name('platform.invest_advantages.create')    
+    ->name('platform.invest_advantages.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.invest_advantages.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.invest_advantages.list')->push('Create')
+    );
 Route::screen('investments/{id}/invest_advantages/edit', AdvantagesAdvantagesEditScreen::class)
     ->name('platform.invest_advantages.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.invest_advantages.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.invest_advantages.list')->push('Edit')
+    );
 
 Route::screen('investments/invest_strategies', StrategiesListScreen::class)
-->name('platform.invest_strategies.list')    
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('Investment Strategies'));
+    ->name('platform.invest_strategies.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Investment Strategies')
+    );
 Route::screen('investments/invest_strategies/create', StrategiesEditScreen::class)
     ->name('platform.invest_strategies.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.invest_strategies.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.invest_strategies.list')->push('Create')
+    );
 Route::screen('investments/{id}/invest_strategies/edit', StrategiesEditScreen::class)
     ->name('platform.invest_strategies.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.invest_strategies.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.invest_strategies.list')->push('Edit')
+    );
 
 // Vacancies
 Route::screen('vacancies', VacanciesListScreen::class)
-->name('platform.vacancies.list')
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('Vacancies'));
+    ->name('platform.vacancies.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Vacancies')
+    );
 Route::screen('vacancy/create', VacanciesEditScreen::class)
     ->name('platform.vacancies.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.vacancies.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.vacancies.list')->push('Create')
+    );
 Route::screen('vacancy/{id}/edit', VacanciesEditScreen::class)
     ->name('platform.vacancies.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.vacancies.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.vacancies.list')->push('Edit')
+    );
 
 // News
 Route::screen('news', NewsListScreen::class)
-->name('platform.news.list')
-->breadcrumbs(
-    fn (Trail $trail) => $trail->parent('platform.index')->push('News'));
+    ->name('platform.news.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('News')
+    );
 Route::screen('news/create', NewsEditScreen::class)
     ->name('platform.news.create')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.news.list')->push('Create'));
+        fn (Trail $trail) => $trail->parent('platform.news.list')->push('Create')
+    );
 Route::screen('news/{id}/edit', NewsEditScreen::class)
     ->name('platform.news.edit')
     ->breadcrumbs(
-        fn (Trail $trail) => $trail->parent('platform.news.list')->push('Edit'));
+        fn (Trail $trail) => $trail->parent('platform.news.list')->push('Edit')
+    );
 
 Route::screen('general_requests', GeneralRequestsListScreen::class)->name('platform.general_request.list');
 Route::screen('resume_requests', ResumeRequestsListScreen::class)->name('platform.resume_request.list');
+
+//Projects
+
+
+    Route::group(['namespace' => 'Projet', 'prefix' => 'projects'], function () {
+        Route::screen('/all', ProjectsListScreen::class)
+    ->name('platform.project.list')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.index')->push('Projects')
+    );
+    Route::screen('/create', ProjectsEditScreen::class)
+    ->name('platform.project.create')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.project.list')->push('Create')
+    );
+    Route::screen('/{id_project}/edit', ProjectsEditScreen::class)
+    ->name('platform.project.edit')
+    ->breadcrumbs(
+        fn (Trail $trail) => $trail->parent('platform.project.list')->push('Edit')
+    );
+
+        Route::group(['prefix' => '/{id}'], function () {
+            Route::screen('project_advantage/{id_project}/edit', ProjectsAdvantagesAdvantagesEditScreen::class)
+                ->name('platform.project_advantage.edit')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Advantage Edit')
+                );
+            Route::screen('project_advantage/create', ProjectsAdvantagesAdvantagesCreateScreen::class)
+                ->name('platform.project_advantage.create')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Advantage Create')
+                );
+        });
+        Route::group(['prefix' => '/{id}'], function () {
+            Route::screen('project_progress_point/{id_project}/edit', PointEditScreen::class)
+                ->name('platform.project_progress_point.edit')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Point Edit')
+                );
+            Route::screen('project_progress_point/create', PointCreateScreen::class)
+                ->name('platform.project_progress_point.create')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Point Create')
+                );
+        });
+        Route::group(['prefix' => '/{id}'], function () {
+            Route::screen('project_unit/{id_project}/edit', UnitsEditScreen::class)
+                ->name('platform.project_unit.edit')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Unit Edit')
+                );
+            Route::screen('project_unit/create', UnitsCreateScreen::class)
+                ->name('platform.project_unit.create')
+                ->breadcrumbs(
+                    fn (Trail $trail) => $trail->parent('platform.project.list')->push('Unit Create')
+                );
+        });
+    });
+
+
 
 // Main
 Route::screen('/main', PlatformScreen::class)

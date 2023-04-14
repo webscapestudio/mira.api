@@ -113,8 +113,10 @@ class PartnersListScreen extends Screen
         if ($partner_all->first() == $partner) :
             Toast::error(__('Position is first'));
         else :
-            $prev_partner->increment('sortdd');
-            $partner->decrement('sortdd');
+            $difference = $partner->sortdd - $prev_partner->sortdd;
+
+            $prev_partner->update(['sortdd'=>$prev_partner->sortdd + $difference]);
+            $partner->update(['sortdd'=>$partner->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -130,8 +132,11 @@ class PartnersListScreen extends Screen
         if ($partner_all->last() == $partner) :
             Toast::error(__('Position is latest'));
         else :
-            $next_partner->decrement('sortdd');
-            $partner->increment('sortdd');
+            $difference =$next_partner->sortdd - $partner->sortdd;
+
+            $next_partner->update(['sortdd'=>$next_partner->sortdd - $difference]);
+            $partner->update(['sortdd'=>$partner->sortdd + $difference]);
+            
             Toast::info(__('Successfully'));
         endif;
     }

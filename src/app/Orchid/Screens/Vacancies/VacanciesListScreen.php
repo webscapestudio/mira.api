@@ -112,8 +112,10 @@ class VacanciesListScreen extends Screen
         if ($vacancie_all->first() == $vacancie) :
             Toast::error(__('Position is first'));
         else :
-            $prev_vacancie->increment('sortdd');
-            $vacancie->decrement('sortdd');
+            $difference = $vacancie->sortdd - $prev_vacancie->sortdd;
+
+            $prev_vacancie->update(['sortdd'=>$prev_vacancie->sortdd + $difference]);
+            $vacancie->update(['sortdd'=>$vacancie->sortdd - $difference]);
             Toast::info(__('Successfully'));
         endif;
 
@@ -129,8 +131,10 @@ class VacanciesListScreen extends Screen
         if ($vacancie_all->last() == $vacancie) :
             Toast::error(__('Position is latest'));
         else :
-            $next_vacancie->decrement('sortdd');
-            $vacancie->increment('sortdd');
+            $difference =$next_vacancie->sortdd - $vacancie->sortdd;
+
+            $next_vacancie->update(['sortdd'=>$next_vacancie->sortdd - $difference]);
+            $vacancie->update(['sortdd'=>$vacancie->sortdd + $difference]);
             Toast::info(__('Successfully'));
         endif;
     }

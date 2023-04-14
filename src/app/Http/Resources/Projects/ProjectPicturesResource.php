@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Projects;
 
-use App\Models\Partners;
+use App\Models\ProjectUnit;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PartnersResource extends JsonResource
+class ProjectPicturesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,17 +14,12 @@ class PartnersResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {
+    { 
+
         $pictures = [];
         foreach($this->attachment as $attach):
             array_push($pictures, $attach->url);
         endforeach;
-        return [
-            "title"=>$this->title,
-		"logo"=>$this->logo,
-		"description"=>$this->description,
-		"pictures"=>$pictures,
-        
-        ];
+        return $pictures;
     }
 }
